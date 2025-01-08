@@ -1,5 +1,5 @@
 import CarouselBanner from "@/components/CarouselBanner";
-import OfferBanner from "@/components/OfferBanner";
+// import OfferBanner from "@/components/OfferBanner";
 import ProductsView from "@/components/ProductsView";
 // import { Button } from "@/components/ui/button";
 import { getAllCategories } from "@/sanity/lib/products/getAllCetgories";
