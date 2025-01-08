@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
-import { getActiveOfferText } from "@/sanity/lib/offertext/getActiveOfferText";
+// import { getActiveOfferText } from "@/sanity/lib/offertext/getActiveOfferText";
 
 export default function MovingTextBanner() {
     const [animate, setAnimate] = useState(false);

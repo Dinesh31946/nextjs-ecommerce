@@ -15,11 +15,11 @@ export default function ContactPage() {
                 <div className="bg-white shadow-2xl rounded-3xl overflow-hidden md:flex">
                     <div className="md:w-1/2 bg-blue-600 p-8 sm:p-12 text-white flex flex-col justify-center">
                         <h2 className="text-2xl sm:text-3xl font-bold mb-6">
-                            Let's Connect
+                            Let&apos;s Connect
                         </h2>
                         <p className="mb-8 text-base sm:text-lg">
-                            We're here to help and answer any question you might
-                            have. We look forward to hearing from you!
+                            We&apos;re here to help and answer any question you
+                            might have. We look forward to hearing from you!
                         </p>
                         <div className="space-y-4">
                             <div className="flex items-center">

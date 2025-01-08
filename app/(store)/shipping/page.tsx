@@ -11,7 +11,7 @@ import { imageUrl } from "@/lib/imageUrl";
 
 // Import PayPalScriptProvider and PayPalButtons
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import sanityClient, { createClient } from "@sanity/client";
+import { createClient } from "@sanity/client";
 
 const client = createClient({
     projectId: "kl91j914",
@@ -31,10 +31,10 @@ interface FormData {
     pincode: string;
 }
 
-interface Product {
-    product: { _ref: string }; // Assuming 'product' is a reference to a 'product' document
-    quantity: number;
-}
+// interface Product {
+//     product: { _ref: string }; // Assuming 'product' is a reference to a 'product' document
+//     quantity: number;
+// }
 
 export default function ShippingPage() {
     const router = useRouter();
@@ -496,7 +496,9 @@ export default function ShippingPage() {
                                                         status: status, // Status is "paid" since the transaction was successful
                                                         orderDate: orderDate, // Current date as the order date
                                                     })
-                                                    .then((createdOrder) => {})
+                                                    .then
+                                                    // (createdOrder) => {}
+                                                    ()
                                                     .catch((error) => {
                                                         console.error(
                                                             "Error saving order in Sanity:",
