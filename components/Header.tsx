@@ -34,11 +34,20 @@ const Header = () => {
             <MovingTextBanner />
             {/* Top row */}
             <div className="flex flex-wrap w-full mt-2 justify-between items-center">
-                <Link
+                {/* <Link
                     href="/"
                     className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer mx-auto sm:mx-0"
                 >
-                    Shoper
+                    SpectraStore
+                </Link> */}
+                <Link
+                    href="/"
+                    className="text-3xl font-extrabold text-gradient from-blue-500 to-purple-500 hover:opacity-80 cursor-pointer mx-auto sm:mx-0 flex items-center"
+                    aria-label="SpectraStore Logo"
+                >
+                    <span className="inline-block text-shadow-md">
+                        Spectra<span className="text-blue-600">Store</span>
+                    </span>
                 </Link>
 
                 <Form

@@ -44,19 +44,19 @@ import { Order } from "@/app/(store)/orders/types";
 
 const fetchOrders = async (): Promise<Order[]> => {
     const query = `*[_type == "order"]{
-        _id,
-        orderNumber,
-        orderDate,
-        status,
-        totalPrice,
-        products[]->{
-            product->{
-                name,
-                price
-            },
-            quantity
-        }
-    }`;
+            _id,
+            orderNumber,
+            orderDate,
+            status,
+            totalPrice,
+            products[]{
+                product->{ // Single dereference is enough
+                    name,
+                    price
+                },
+                quantity
+            }
+        }`;
 
     try {
         const orders = await client.fetch(query);

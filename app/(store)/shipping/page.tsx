@@ -440,12 +440,32 @@ export default function ShippingPage() {
                                                 const status = "paid"; // Assuming the payment was successful
 
                                                 //capturing the product details
-                                                const products =
-                                                    groupedItems.map(
-                                                        (item) => ({
-                                                            _key:
-                                                                Date.now() +
-                                                                Math.random(),
+                                                // const products =
+                                                //     groupedItems.map(
+                                                //         (item) => ({
+                                                //             _key: crypto.randomUUID(),
+                                                //             product: {
+                                                //                 _type: "reference",
+                                                //                 _ref: item
+                                                //                     .product
+                                                //                     ._id, // Reference to the correct product
+                                                //             },
+                                                //             quantity:
+                                                //                 item.quantity,
+                                                //         })
+                                                //     );
+
+                                                const products = groupedItems
+                                                    .map((item) => {
+                                                        if (!item.product._id) {
+                                                            console.error(
+                                                                "Invalid product ID for item:",
+                                                                item
+                                                            );
+                                                            return null; // Skip invalid items
+                                                        }
+                                                        return {
+                                                            _key: crypto.randomUUID(), // Or use uuidv4() if crypto.randomUUID is unavailable
                                                             product: {
                                                                 _type: "reference",
                                                                 _ref: item
@@ -454,8 +474,9 @@ export default function ShippingPage() {
                                                             },
                                                             quantity:
                                                                 item.quantity,
-                                                        })
-                                                    );
+                                                        };
+                                                    })
+                                                    .filter(Boolean); // Remove null items
 
                                                 // Sanity document creation for the "order" schema
                                                 client
