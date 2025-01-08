@@ -9,6 +9,7 @@ import {
 } from "@clerk/nextjs";
 import Link from "next/link";
 import Form from "next/form";
+import Image from "next/image";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/app/(store)/store";
 import MovingTextBanner from "./MovingTextBanner";
@@ -48,6 +49,18 @@ const Header = () => {
                     <span className="inline-block text-shadow-md">
                         Spectra<span className="text-blue-600">Store</span>
                     </span>
+                    {/* Logo Image */}
+                    {/* <div className="ml-4 flex items-center">
+                        <Image
+                            src="/images/logo2.png" // Path to your logo image
+                            alt="SpectraStore Logo"
+                            width={150} // Default width for desktop view
+                            height={150} // Default height for desktop view
+                            className="object-contain"
+                            sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 200px"
+                            priority
+                        />
+                    </div> */}
                 </Link>
 
                 <Form

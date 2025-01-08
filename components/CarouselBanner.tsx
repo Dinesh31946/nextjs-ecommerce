@@ -5,9 +5,9 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
-    "https://www.pexels.com/photo/woman-in-white-shirt-holding-black-tablet-computer-7552326/",
-    "https://www.pexels.com/photo/woman-in-beige-long-sleeve-shirt-holding-a-laptop-8939791/",
-    "https://www.pexels.com/photo/silver-imac-with-magic-keyboard-and-mouse-6483579/",
+    "/images/Home-Banner-1.jpeg",
+    "/images/Home-Banner-2.jpeg",
+    "/images/Home-Banner-3.jpeg",
 ];
 
 export default function CarouselBanner() {
@@ -30,7 +30,10 @@ export default function CarouselBanner() {
     }, []);
 
     return (
-        <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+        <div
+            className="relative w-full overflow-hidden "
+            style={{ aspectRatio: "1250 / 417" }}
+        >
             {images.map((src, index) => (
                 <div
                     key={index}
@@ -41,9 +44,13 @@ export default function CarouselBanner() {
                     <Image
                         src={src}
                         alt={`Slide ${index + 1}`}
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        sizes="100vw"
                         priority={index === 0}
+                        style={{
+                            objectFit: "cover",
+                        }}
+                        className="px-4"
                     />
                 </div>
             ))}

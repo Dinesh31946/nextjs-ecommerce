@@ -1,4 +1,4 @@
-// import CarouselBanner from "@/components/CarouselBanner";
+import CarouselBanner from "@/components/CarouselBanner";
 import OfferBanner from "@/components/OfferBanner";
 import ProductsView from "@/components/ProductsView";
 // import { Button } from "@/components/ui/button";
@@ -12,8 +12,8 @@ export default async function Home() {
 
     return (
         <div>
-            <OfferBanner />
-            {/* <CarouselBanner /> */}
+            {/* <OfferBanner /> */}
+            <CarouselBanner />
 
             {/* render all the products */}
             <div>
