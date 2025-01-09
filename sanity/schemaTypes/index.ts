@@ -6,6 +6,7 @@ import { productType } from "./productType";
 import { orderType } from "./orderType";
 import { salesType } from "./salesType";
 import { offerType } from "./offerType";
+import { reachUsFormType } from "./contactType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -15,5 +16,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         orderType,
         salesType,
         offerType,
+        reachUsFormType,
     ],
 };
