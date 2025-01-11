@@ -22,7 +22,7 @@ export default async function Home() {
 
             {/* render all the products */}
             <div>
-                <ProductsView products={products} categories={categories} />
+                <ProductsView categories={categories} />
             </div>
 
             <div>
