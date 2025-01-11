@@ -3,9 +3,13 @@ import { sanityFetch } from "../live";
 
 // Function to get all the categories
 export const getAllCategories = async () => {
-    const ALL_CATEGORIES_QUERY = defineQuery(`
+    const ALL_CATEGORIES_QUERY = defineQuery(`  
         *[_type == "category"] | order(title asc) {
             _id,
+            _type,
+            _createdAt,
+            _updatedAt,
+            _rev,
             title,
             description,
             slug {

@@ -13,6 +13,7 @@ import Form from "next/form";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/app/(store)/store";
 import MovingTextBanner from "./MovingTextBanner";
+import Logo from "./Logo";
 
 const Header = () => {
     const { user } = useUser();
@@ -46,9 +47,10 @@ const Header = () => {
                     className="text-3xl font-extrabold text-gradient from-blue-500 to-purple-500 hover:opacity-80 cursor-pointer mx-auto sm:mx-0 flex items-center"
                     aria-label="SpectraStore Logo"
                 >
-                    <span className="inline-block text-shadow-md">
+                    {/* <span className="inline-block text-shadow-md">
                         Spectra<span className="text-blue-600">Store</span>
-                    </span>
+                    </span> */}
+                    <Logo />
                     {/* Logo Image */}
                     {/* <div className="ml-4 flex items-center">
                         <Image

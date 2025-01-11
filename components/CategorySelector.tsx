@@ -13,17 +13,21 @@ interface Category {
     _rev: string;
     title?: string;
     slug?: {
-        current: string;
+        current?: string;
     };
     description?: string;
     smallImage?: {
         asset?: {
-            url: string;
+            _ref: string;
+            _type: "reference";
+            url?: string; // Allow url if it exists
         };
     };
     bannerImage?: {
         asset?: {
-            url: string;
+            _ref: string;
+            _type: "reference";
+            url?: string; // Allow url if it exists
         };
     };
 }
@@ -145,16 +149,23 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
                                 {isSmallScreen && !isExpanded
                                     ? `${truncatedDescription}...`
                                     : descriptionText}
+                                <span>
+                                    {isSmallScreen && (
+                                        <button
+                                            onClick={() =>
+                                                setIsExpanded(!isExpanded)
+                                            }
+                                            className="text-[#86d7ff] text-sm font-semibold"
+                                        >
+                                            {isExpanded
+                                                ? "Show Less"
+                                                : "Read More"}
+                                        </button>
+                                    )}
+                                </span>
                             </p>
-                            {isSmallScreen && (
-                                <button
-                                    onClick={() => setIsExpanded(!isExpanded)}
-                                    className="text-blue-500 text-sm font-semibold"
-                                >
-                                    {isExpanded ? "Show Less" : "Read More"}
-                                </button>
-                            )}
-                            <button className="inline-flex max-w-40 max-h-20 items-center px-6 py-3 text-base font-semibold text-blue-500 bg-white border-4 border-[#86d7ff] rounded-full shadow-md hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#86d7ff] hover:text-white transition-all duration-300 ease-in-out">
+
+                            <button className="inline-flex max-w-40 max-h-20 items-center px-6 py-3 text-base font-semibold text-[#86d7ff] bg-white border-4 border-[#86d7ff] rounded-full shadow-md hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#86d7ff] hover:text-white transition-all duration-300 ease-in-out">
                                 Explore
                                 <ChevronRight className="ml-2 h-5 w-5" />
                             </button>

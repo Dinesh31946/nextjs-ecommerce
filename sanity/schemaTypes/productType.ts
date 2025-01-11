@@ -21,21 +21,34 @@ export const productType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: "image",
-            title: "Product Image",
-            type: "image",
-            options: { hotspot: true },
+            name: "images",
+            title: "Product Images",
+            type: "array",
+            of: [{ type: "image", options: { hotspot: true } }],
+            validation: (Rule) => Rule.required().min(1),
         }),
         defineField({
             name: "description",
-            title: " Description",
+            title: "Description",
             type: "blockContent",
         }),
         defineField({
-            name: "price",
-            title: " Price",
+            name: "mrp",
+            title: "MRP (Maximum Retail Price)",
             type: "number",
             validation: (Rule) => Rule.required().min(0),
+        }),
+        defineField({
+            name: "mop",
+            title: "MOP (Minimum Operating Price)",
+            type: "number",
+            validation: (Rule) => Rule.required().min(0),
+        }),
+        defineField({
+            name: "keyFeatures",
+            title: "Key Features",
+            type: "array",
+            of: [{ type: "string" }],
         }),
         defineField({
             name: "categories",
@@ -53,13 +66,13 @@ export const productType = defineType({
     preview: {
         select: {
             title: "name",
-            media: "image",
-            price: "price",
+            media: "images.0", // Show the first image in the array as the preview image
+            mop: "mop",
         },
         prepare(select) {
             return {
                 title: select.title,
-                subtitle: `Rs ${select.price}`,
+                subtitle: `Rs ${select.mop}`,
                 media: select.media,
             };
         },

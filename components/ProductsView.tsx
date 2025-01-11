@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import ProductGrid from "./ProductGrid";
+// import ProductGrid from "./ProductGrid";
 import { CategorySelector } from "./CategorySelector";
 import { getAllCategories } from "@/sanity/lib/products/getAllCetgories"; // Importing the fetch function
 import { Category, Product } from "@/sanity.types";
@@ -19,12 +19,12 @@ const ProductsView = ({ products, categories }: ProductsViewProps) => {
             </div>
 
             {/* Products */}
-            <div className="flex=1">
+            {/* <div className="flex=1">
                 <div>
                     <ProductGrid products={products} />
                     <hr className="w-1/2 sm:w-3/4" />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -34,7 +34,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     let categories: Category[] = [];
 
     try {
-        categories = await getAllCategories(); // Fetching categories from Sanity
+        categories = await getAllCategories();
+        // Fetching categories from Sanity
     } catch (error) {
         console.error("Error fetching categories:", error);
     }

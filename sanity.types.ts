@@ -143,7 +143,7 @@ export type Product = {
     _rev: string;
     name?: string;
     slug?: Slug;
-    image?: {
+    images?: Array<{
         asset?: {
             _ref: string;
             _type: "reference";
@@ -153,7 +153,8 @@ export type Product = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         _type: "image";
-    };
+        _key: string;
+    }>;
     description?: Array<
         | {
               children?: Array<{
@@ -187,7 +188,9 @@ export type Product = {
               _key: string;
           }
     >;
-    price?: number;
+    mrp?: number;
+    mop?: number;
+    keyFeatures?: Array<string>;
     categories?: Array<{
         _ref: string;
         _type: "reference";
@@ -198,40 +201,6 @@ export type Product = {
     stock?: number;
 };
 
-// export type Category = {
-//   _id: string;
-//   _type: "category";
-//   _createdAt: string;
-//   _updatedAt: string;
-//   _rev: string;
-//   title?: string;
-//   slug?: Slug;
-//   description?: string;
-//   smallImage?: {
-//     asset?: {
-//       _ref: string;
-//       _type: "reference";
-//       _weak?: boolean;
-//       [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-//     };
-//     hotspot?: SanityImageHotspot;
-//     crop?: SanityImageCrop;
-//     _type: "image";
-//   };
-//   bannerImage?: {
-//     asset?: {
-//       _ref: string;
-//       _type: "reference";
-//       _weak?: boolean;
-//       [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-//     };
-//     hotspot?: SanityImageHotspot;
-//     crop?: SanityImageCrop;
-//     _type: "image";
-//   };
-// };
-
-// sanity.types.ts
 export type Category = {
     _id: string;
     _type: "category";
@@ -239,19 +208,29 @@ export type Category = {
     _updatedAt: string;
     _rev: string;
     title?: string;
-    slug?: {
-        current: string; // This ensures it matches the expected type in the component
-    };
+    slug?: Slug;
     description?: string;
     smallImage?: {
         asset?: {
-            url: string;
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
         };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
     };
     bannerImage?: {
         asset?: {
-            url: string;
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
         };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
     };
 };
 
@@ -386,58 +365,26 @@ export type ACTIVE_OFFER_TEXTResult = {
     isActive?: boolean;
 } | null;
 
-// Source: ./sanity/lib/sales/getActiveSaleByCouponCode.ts
-// Variable: ACTIVE_SALE_BY_COUPON_QUERY
-// Query: *[_type == "sale" && isActive == true && couponCode == $couponCode] | order(validFrom desc)[0]
-export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
-    _id: string;
-    _type: "sale";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    title?: string;
-    description?: string;
-    discountAmount?: number;
-    couponCode?: string;
-    validFrom?: string;
-    validUntill?: string;
-    isActive?: boolean;
-} | null;
-
 // Source: ./sanity/lib/products/getAllCetgories.ts
 // Variable: ALL_CATEGORIES_QUERY
-// Query: *[_type == "category" ] | order(name asc)
+// Query: *[_type == "category"] | order(title asc) {            _id,            title,            description,            slug {                current            },            smallImage {                asset-> {                    url                }            },            bannerImage {                asset-> {                    url                }            }        }
 export type ALL_CATEGORIES_QUERYResult = Array<{
     _id: string;
-    _type: "category";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    title?: string;
-    slug?: Slug;
-    description?: string;
-    smallImage?: {
-        asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-    };
-    bannerImage?: {
-        asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-    };
+    title: string | null;
+    description: string | null;
+    slug: {
+        current: string | null;
+    } | null;
+    smallImage: {
+        asset: {
+            url: string | null;
+        } | null;
+    } | null;
+    bannerImage: {
+        asset: {
+            url: string | null;
+        } | null;
+    } | null;
 }>;
 
 // Source: ./sanity/lib/products/getAllProducts.ts
@@ -451,7 +398,7 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     _rev: string;
     name?: string;
     slug?: Slug;
-    image?: {
+    images?: Array<{
         asset?: {
             _ref: string;
             _type: "reference";
@@ -461,7 +408,8 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         _type: "image";
-    };
+        _key: string;
+    }>;
     description?: Array<
         | {
               children?: Array<{
@@ -495,7 +443,9 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
               _key: string;
           }
     >;
-    price?: number;
+    mrp?: number;
+    mop?: number;
+    keyFeatures?: Array<string>;
     categories?: Array<{
         _ref: string;
         _type: "reference";
@@ -517,7 +467,7 @@ export type PRODUCT_BY_CATEGORY_QUERYResult = Array<{
     _rev: string;
     name?: string;
     slug?: Slug;
-    image?: {
+    images?: Array<{
         asset?: {
             _ref: string;
             _type: "reference";
@@ -527,7 +477,8 @@ export type PRODUCT_BY_CATEGORY_QUERYResult = Array<{
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         _type: "image";
-    };
+        _key: string;
+    }>;
     description?: Array<
         | {
               children?: Array<{
@@ -561,7 +512,9 @@ export type PRODUCT_BY_CATEGORY_QUERYResult = Array<{
               _key: string;
           }
     >;
-    price?: number;
+    mrp?: number;
+    mop?: number;
+    keyFeatures?: Array<string>;
     categories?: Array<{
         _ref: string;
         _type: "reference";
@@ -583,7 +536,7 @@ export type PRODUCT_BY_ID_QUERYResult = {
     _rev: string;
     name?: string;
     slug?: Slug;
-    image?: {
+    images?: Array<{
         asset?: {
             _ref: string;
             _type: "reference";
@@ -593,7 +546,8 @@ export type PRODUCT_BY_ID_QUERYResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         _type: "image";
-    };
+        _key: string;
+    }>;
     description?: Array<
         | {
               children?: Array<{
@@ -627,7 +581,9 @@ export type PRODUCT_BY_ID_QUERYResult = {
               _key: string;
           }
     >;
-    price?: number;
+    mrp?: number;
+    mop?: number;
+    keyFeatures?: Array<string>;
     categories?: Array<{
         _ref: string;
         _type: "reference";
@@ -649,7 +605,7 @@ export type PRODUCT_SEARCH_QUERYResult = Array<{
     _rev: string;
     name?: string;
     slug?: Slug;
-    image?: {
+    images?: Array<{
         asset?: {
             _ref: string;
             _type: "reference";
@@ -659,7 +615,8 @@ export type PRODUCT_SEARCH_QUERYResult = Array<{
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         _type: "image";
-    };
+        _key: string;
+    }>;
     description?: Array<
         | {
               children?: Array<{
@@ -693,7 +650,9 @@ export type PRODUCT_SEARCH_QUERYResult = Array<{
               _key: string;
           }
     >;
-    price?: number;
+    mrp?: number;
+    mop?: number;
+    keyFeatures?: Array<string>;
     categories?: Array<{
         _ref: string;
         _type: "reference";
@@ -704,16 +663,34 @@ export type PRODUCT_SEARCH_QUERYResult = Array<{
     stock?: number;
 }>;
 
+// Source: ./sanity/lib/sales/getActiveSaleByCouponCode.ts
+// Variable: ACTIVE_SALE_BY_COUPON_QUERY
+// Query: *[_type == "sale" && isActive == true && couponCode == $couponCode] | order(validFrom desc)[0]
+export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
+    _id: string;
+    _type: "sale";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    description?: string;
+    discountAmount?: number;
+    couponCode?: string;
+    validFrom?: string;
+    validUntill?: string;
+    isActive?: boolean;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
     interface SanityQueries {
         '\n            *[_type == "offertext" && isActive == true ] [0]\n        ': ACTIVE_OFFER_TEXTResult;
-        '\n            *[_type == "sale" && isActive == true && couponCode == $couponCode] | order(validFrom desc)[0]\n        ': ACTIVE_SALE_BY_COUPON_QUERYResult;
-        '\n            *[_type == "category" ] | order(name asc)\n        ': ALL_CATEGORIES_QUERYResult;
+        '\n        *[_type == "category"] | order(title asc) {\n            _id,\n            title,\n            description,\n            slug {\n                current\n            },\n            smallImage {\n                asset-> {\n                    url\n                }\n            },\n            bannerImage {\n                asset-> {\n                    url\n                }\n            }\n        }\n    ': ALL_CATEGORIES_QUERYResult;
         '\n            *[_type == "product"] | order(name asc)\n        ': ALL_PRODUCTS_QUERYResult;
         '\n            *[\n                _type == "product"\n                && references(*[_type == "category" && slug.current == $categorySlug]._id)\n            ] | order(name asc)\n        ': PRODUCT_BY_CATEGORY_QUERYResult;
         '\n            *[\n                _type == "product" && slug.current == $slug\n            ] | order(name asc) [0]\n        ': PRODUCT_BY_ID_QUERYResult;
         '\n            *[\n                _type =="product" && name match $searchParam\n            ] | order(name asc)\n        ': PRODUCT_SEARCH_QUERYResult;
+        '\n            *[_type == "sale" && isActive == true && couponCode == $couponCode] | order(validFrom desc)[0]\n        ': ACTIVE_SALE_BY_COUPON_QUERYResult;
     }
 }
