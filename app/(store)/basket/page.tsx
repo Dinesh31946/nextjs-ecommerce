@@ -98,10 +98,10 @@ function BasketPage() {
                                 }
                             >
                                 <div className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 mr-4">
-                                    {item.product.image && (
+                                    {item.product.images && (
                                         <Image
                                             src={imageUrl(
-                                                item.product.image
+                                                item.product.images
                                             ).url()}
                                             alt={
                                                 item.product.name ??
@@ -120,7 +120,7 @@ function BasketPage() {
                                     <p className="text-sm sm:text-base">
                                         Price: <br /> Rs{" "}
                                         {(
-                                            (item.product.price ?? 0) *
+                                            (item.product.mop ?? 0) *
                                             item.quantity
                                         ).toFixed(2)}
                                     </p>

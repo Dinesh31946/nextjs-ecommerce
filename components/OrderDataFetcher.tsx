@@ -37,7 +37,7 @@ const fetchOrders = async (): Promise<Order[]> => {
             products[] {
                 product->{ 
                     name,
-                    price
+                    mop
                 },
                 quantity
             }

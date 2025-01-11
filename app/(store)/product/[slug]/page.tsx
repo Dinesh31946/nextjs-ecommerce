@@ -22,9 +22,9 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
                 <div
                     className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50 " : ""} `}
                 >
-                    {product.image && (
+                    {product.images && (
                         <Image
-                            src={imageUrl(product.image).url()}
+                            src={imageUrl(product.images).url()}
                             alt={product.name ?? "Product Image"}
                             fill
                             className="object-contain transition-transform duration-300 hover:scale-105"
@@ -45,7 +45,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
                             {product.name}
                         </h1>
                         <div className="text-xl font-semibold mb-4">
-                            Rs {product.price?.toFixed(2)}
+                            Rs {product.mop?.toFixed(2)}
                         </div>
                         <div className="prose max-w-none mb-6">
                             {Array.isArray(product.description) && (

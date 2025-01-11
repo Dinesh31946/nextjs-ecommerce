@@ -331,10 +331,10 @@ export default function ShippingPage() {
                                                 {/* Dynamically load product image */}
                                                 <Image
                                                     src={
-                                                        item.product.image
+                                                        item.product.images
                                                             ? imageUrl(
                                                                   item.product
-                                                                      .image
+                                                                      .images
                                                               ).url()
                                                             : "/placeholder.svg"
                                                     }
@@ -357,7 +357,7 @@ export default function ShippingPage() {
                                             <div className="font-medium">
                                                 Rs{" "}
                                                 {(
-                                                    (item.product.price ?? 0) *
+                                                    (item.product.mop ?? 0) *
                                                     item.quantity
                                                 ).toFixed(2)}
                                             </div>
