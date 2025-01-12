@@ -13,7 +13,7 @@ import Image from "next/image";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/app/(store)/store";
 import MovingTextBanner from "./MovingTextBanner";
-import Logo from "./Logo";
+// import Logo from "./Logo";
 
 const Header = () => {
     const { user } = useUser();
