@@ -1,13 +1,13 @@
 import CarouselBanner from "@/components/CarouselBanner";
 import { FeaturedProductCarousel } from "@/components/FeaturedProductCarousel";
 // import OfferBanner from "@/components/OfferBanner";
-import ProductsView from "@/components/ProductsView";
 // import { Button } from "@/components/ui/button";
 import { getAllCategories } from "@/sanity/lib/products/getAllCetgories";
 // import { getAllProducts } from "@/sanity/lib/products/getAllProducts";
 import NewArrivalSection from "@/components/NewArrival";
 import WavePromo from "@/components/WavePromo";
 import { getFeaturedProducts } from "@/sanity/lib/products/getAllFeatureProduct";
+import CategoryView from "@/components/CategoryView";
 
 export default async function Home() {
     // const products = await getAllProducts();
@@ -23,7 +23,7 @@ export default async function Home() {
 
             {/* render all the products */}
             <div>
-                <ProductsView categories={categories} />
+                <CategoryView categories={categories} />
             </div>
 
             <div>

@@ -5,13 +5,13 @@ import { getAllCategories } from "@/sanity/lib/products/getAllCetgories"; // Imp
 // import { Category, Product } from "@/sanity.types";
 import { Category } from "@/sanity.types";
 
-interface ProductsViewProps {
+interface CategoryViewProps {
     // products: Product[];
     categories: Category[]; // Categories will be passed as props
 }
 
-// const ProductsView = ({ products, categories }: ProductsViewProps) => {
-const ProductsView = ({ categories }: ProductsViewProps) => {
+// const CategoryView = ({ products, categories }: CategoryViewProps) => {
+const CategoryView = ({ categories }: CategoryViewProps) => {
     return (
         <div className="flex flex-col">
             {/* Categories */}
@@ -41,4 +41,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
 };
 
-export default ProductsView;
+export default CategoryView;
