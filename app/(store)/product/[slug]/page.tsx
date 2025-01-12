@@ -12,10 +12,10 @@ interface ProductPageProps {
     params: { slug: string };
 }
 
-// The component is marked as async but params should be used synchronously
+// The component is marked as async
 const ProductPage = async ({ params }: ProductPageProps) => {
-    // No need to await params, they are available synchronously
-    const { slug } = params;
+    // Await params and then destructure slug
+    const { slug } = await params;
 
     // Fetch the product data on the server side
     const product: Product | null = await getProductBySlug(slug);
@@ -38,7 +38,9 @@ const ProductPage = async ({ params }: ProductPageProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Product Image */}
                 <div
-                    className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
+                    className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${
+                        isOutOfStock ? "opacity-50" : ""
+                    }`}
                 >
                     {product.images && (
                         <Image

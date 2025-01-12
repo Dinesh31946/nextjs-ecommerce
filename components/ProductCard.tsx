@@ -9,6 +9,7 @@ import useBasketStore from "@/app/(store)/store";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 interface ProductCardProps {
     product: Product;
@@ -40,9 +41,9 @@ export function ProductCard({ product }: ProductCardProps) {
         ? imageUrl(image).url()
         : "/path/to/fallback/image.jpg";
 
-    const handleQuickViewClick = () => {
-        router.push(`/product/${slug?.current}/`);
-    };
+    // const handleQuickViewClick = () => {
+    //     router.push(`/app//product/${slug?.current}/`);
+    // };
 
     const handleBasketToggle = () => {
         if (ItemCount > 0) {
@@ -86,12 +87,18 @@ export function ProductCard({ product }: ProductCardProps) {
                         className="transition-all duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button
+                        {/* <Button
                             className="bg-[#86d7ff] hover:bg-[#5ac8ff] text-white font-semibold py-2 px-4 rounded transition-colors duration-300"
                             onClick={handleQuickViewClick}
                         >
                             Quick View
-                        </Button>
+                        </Button> */}
+                        <Link
+                            href={`/product/${slug?.current}/`}
+                            className="bg-[#86d7ff] hover:bg-[#5ac8ff] text-white font-semibold py-2 px-4 rounded transition-colors duration-300"
+                        >
+                            Quick View
+                        </Link>
                     </div>
                 </div>
                 <div className="p-4">
