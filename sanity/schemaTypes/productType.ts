@@ -68,6 +68,15 @@ export const productType = defineType({
             type: "boolean",
             initialValue: false,
         }),
+
+        defineField({
+            name: "banner",
+            title: "Product Banner",
+            type: "array",
+            of: [{ type: "image", options: { hotspot: true } }],
+            validation: (Rule) => Rule.required().max(1),
+            hidden: ({ parent }) => !parent?.isNewArrival, // Hide if isNewArrival is not true
+        }),
         defineField({
             name: "stock",
             title: "Stock",
