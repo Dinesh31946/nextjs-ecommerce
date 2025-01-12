@@ -1,14 +1,14 @@
-import ProductsView from "@/components/ProductsView";
+import CategoryView from "@/components/CategoryView";
 import { getAllCategories } from "@/sanity/lib/products/getAllCetgories";
 
-interface ProductPageProps {
+interface CategoryPageProps {
     params: { slug: string };
 }
 
-async function ProductPage({ params }: ProductPageProps) {
-    const { slug } = params;
+async function CategoryPage({ params }: CategoryPageProps) {
+    const { slug } = params; // No need for await here, as it's not a promise
 
-    // Fetch required data
+    // Fetch category data
     const categories = await getAllCategories();
 
     return (
@@ -24,10 +24,11 @@ async function ProductPage({ params }: ProductPageProps) {
                         .join(" ")}{" "}
                     Collection
                 </h1>
-                <ProductsView categories={categories} />
+                <CategoryView categories={categories} />{" "}
+                {/* Updated component */}
             </div>
         </div>
     );
 }
 
-export default ProductPage;
+export default CategoryPage;
