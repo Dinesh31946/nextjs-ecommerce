@@ -1,6 +1,6 @@
 "use client";
 
-import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
+import { SignInButton, useAuth } from "@clerk/nextjs";
 import useBasketStore from "../store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -18,6 +18,11 @@ function BasketPage() {
     const [isClient, setIsClient] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    // wait for client to mount
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
     if (groupedItems.length === 0) {
         return (
             <div className="container mx-auto p-4 flex flex-col items-center justify-center min-h-[50vh]">
@@ -28,11 +33,6 @@ function BasketPage() {
             </div>
         );
     }
-
-    // wait for client to mount
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     if (!isClient) {
         return <Loader />;
