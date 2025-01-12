@@ -9,7 +9,7 @@ import { Product } from "@/sanity.types";
 
 // Define the correct type for your page props
 interface ProductPageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 // The component is marked as async
