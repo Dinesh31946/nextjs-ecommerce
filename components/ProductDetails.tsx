@@ -45,7 +45,7 @@ export function ProductDetails({
                         {name}
                     </h1>
                     {/* <p className="mt-4 text-gray-600">{description}</p> */}
-                    {description.map((block, blockIndex) => (
+                    {description.map((block) => (
                         <p key={block._key} className="mt-2">
                             {block.children.map((child, childIndex) => (
                                 <span key={childIndex}>{child.text}</span>
