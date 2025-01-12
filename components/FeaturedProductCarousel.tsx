@@ -9,16 +9,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { ProductCard } from "./ProductCard";
+import { Product } from "@/sanity.types";
 
 // Define the correct type for the products prop
 interface FeaturedProductCarouselProps {
-    products: {
-        id: string;
-        name: string;
-        image: string;
-        mrp: number;
-        mop: number;
-    }[];
+    products: Product[];
 }
 
 export function FeaturedProductCarousel({
@@ -59,8 +54,8 @@ export function FeaturedProductCarousel({
                 className="featured-carousel"
             >
                 {products.map((product) => (
-                    <SwiperSlide key={product.id}>
-                        <ProductCard {...product} />
+                    <SwiperSlide key={product._id}>
+                        <ProductCard product={product} />
                     </SwiperSlide>
                 ))}
             </Swiper>

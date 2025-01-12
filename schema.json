@@ -1173,6 +1173,20 @@
         },
         "optional": true
       },
+      "isFeatured": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
+      "isNewArrival": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
       "stock": {
         "type": "objectAttribute",
         "value": {

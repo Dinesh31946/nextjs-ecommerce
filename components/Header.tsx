@@ -32,7 +32,7 @@ const Header = () => {
     };
 
     return (
-        <header className="flex flex-wrap justify-between items-center px-4 py-2">
+        <header className="flex flex-wrap justify-between items-center  py-2">
             <MovingTextBanner />
             {/* Top row */}
             <div className="flex flex-wrap w-full mt-2 justify-between items-center">
@@ -67,7 +67,7 @@ const Header = () => {
 
                 <Form
                     action="/search"
-                    className="w-full sm:w-auto sm:flex-1 sm:mx-4 mt-2 sm:mt-0"
+                    className="w-full sm:w-auto sm:flex-1 px-4 sm:mx-4 mt-2 sm:mt-0"
                 >
                     <input
                         type="text"
@@ -77,7 +77,7 @@ const Header = () => {
                     />
                 </Form>
 
-                <div className="flex items-center space-x-4 mt-4 sm:mt-0 flex-1 sm:flex-none">
+                <div className="flex items-center space-x-4 mt-4 px-4 sm:mt-0 flex-1 sm:flex-none">
                     <Link
                         href="/basket"
                         className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-gradient-to-r from-[#86d7ff] to-blue-400 text-white font-bold py-2 px-4 rounded-md shadow-lg border border-transparent hover:bg-gradient-to-l hover:from-blue-500 hover:to-[#86d7ff] transition-all duration-150 ease-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#86d7ff]"

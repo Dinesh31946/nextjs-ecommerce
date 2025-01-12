@@ -35,7 +35,16 @@ export const getAllCategories = async () => {
         });
 
         // Return the list of categories or an empty list if no categories
-        return categories.data || [];
+        // return categories.data || [];
+
+        // Convert 'null' title values to 'undefined'
+        const updatedCategories =
+            categories.data?.map((category: any) => ({
+                ...category,
+                title: category.title ?? undefined, // Convert null to undefined
+            })) || [];
+
+        return updatedCategories;
     } catch (error) {
         console.error("Error fetching all categories:", error);
         return [];

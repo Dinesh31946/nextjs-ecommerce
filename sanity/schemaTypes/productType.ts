@@ -57,6 +57,18 @@ export const productType = defineType({
             of: [{ type: "reference", to: { type: "category" } }],
         }),
         defineField({
+            name: "isFeatured",
+            title: "Featured Product",
+            type: "boolean",
+            initialValue: false,
+        }),
+        defineField({
+            name: "isNewArrival",
+            title: "New Arrival",
+            type: "boolean",
+            initialValue: false,
+        }),
+        defineField({
             name: "stock",
             title: "Stock",
             type: "number",

@@ -285,7 +285,7 @@ export default function ShippingPage() {
                                     <button
                                         type="submit"
                                         className={cn(
-                                            "w-full bg-blue-600 text-white py-2 px-4 rounded-md",
+                                            "w-full bg-gradient-to-r from-[#86d7ff] to-blue-400 text-white font-bold py-2 px-4 rounded-md",
                                             "hover:bg-blue-700 transition-colors",
                                             "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                                         )}
@@ -334,7 +334,7 @@ export default function ShippingPage() {
                                                         item.product.images
                                                             ? imageUrl(
                                                                   item.product
-                                                                      .images
+                                                                      .images[0]
                                                               ).url()
                                                             : "/placeholder.svg"
                                                     }
