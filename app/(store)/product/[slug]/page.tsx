@@ -7,26 +7,27 @@ import { imageUrl } from "@/lib/imageUrl";
 import { notFound } from "next/navigation";
 import { Product } from "@/sanity.types";
 
-// Modify the type here to ensure compatibility with Next.js page routing
+// Define the correct type for your page props
 interface ProductPageProps {
     params: { slug: string };
 }
 
-// Make sure that async function properly handles the awaited params
+// The component is marked as async but params should be used synchronously
 const ProductPage = async ({ params }: ProductPageProps) => {
-    // Directly destructure `slug` from `params` without the `await`
+    // No need to await params, they are available synchronously
     const { slug } = params;
 
     // Fetch the product data on the server side
     const product: Product | null = await getProductBySlug(slug);
 
     if (!product) {
-        return notFound(); // Handle 404
+        return notFound(); // Handle 404 if the product is not found
     }
 
     // Determine if the product is out of stock
     const isOutOfStock = product.stock != null && product.stock <= 0;
 
+    // Set the image URL
     const image = product.images?.[0]?.asset?._ref;
     const imageUrlSrc = image
         ? imageUrl(image).url()
