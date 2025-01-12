@@ -1,13 +1,14 @@
 import ProductsView from "@/components/ProductsView";
 import { getAllCategories } from "@/sanity/lib/products/getAllCetgories";
 
-interface CategoryPageProps {
+interface ProductPageProps {
     params: { slug: string };
 }
 
-async function CategoryPage({ params }: CategoryPageProps) {
+async function ProductPage({ params }: ProductPageProps) {
     const { slug } = params;
 
+    // Fetch required data
     const categories = await getAllCategories();
 
     return (
@@ -29,4 +30,4 @@ async function CategoryPage({ params }: CategoryPageProps) {
     );
 }
 
-export default CategoryPage;
+export default ProductPage;
