@@ -9,7 +9,7 @@ import {
 } from "@clerk/nextjs";
 import Link from "next/link";
 import Form from "next/form";
-// import Image from "next/image";
+import Image from "next/image";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/app/(store)/store";
 import MovingTextBanner from "./MovingTextBanner";
@@ -47,22 +47,20 @@ const Header = () => {
                     className="text-3xl font-extrabold text-gradient from-blue-500 to-purple-500 hover:opacity-80 cursor-pointer mx-auto sm:mx-0 flex items-center"
                     aria-label="SpectraStore Logo"
                 >
-                    {/* <span className="inline-block text-shadow-md">
-                        Spectra<span className="text-blue-600">Store</span>
-                    </span> */}
-                    <Logo />
+                    {/* <Logo /> */}
+
                     {/* Logo Image */}
-                    {/* <div className="ml-4 flex items-center">
+                    <div className="ml-4 flex items-center">
                         <Image
-                            src="/images/logo2.png" // Path to your logo image
+                            src="/images/new-logo2.png" // Path to your logo image
                             alt="SpectraStore Logo"
-                            width={150} // Default width for desktop view
-                            height={150} // Default height for desktop view
+                            width={150}
+                            height={150}
                             className="object-contain"
                             sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 200px"
                             priority
                         />
-                    </div> */}
+                    </div>
                 </Link>
 
                 <Form
