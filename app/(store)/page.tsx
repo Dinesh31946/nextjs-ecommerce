@@ -6,7 +6,7 @@ import { getAllCategories } from "@/sanity/lib/products/getAllCetgories";
 import { getNewArrivalProducts } from "@/sanity/lib/banner/getNewArrivalBanner";
 // import { getAllProducts } from "@/sanity/lib/products/getAllProducts";
 import NewArrivalSection from "@/components/NewArrival";
-import WavePromo from "@/components/WavePromo";
+// import WavePromo from "@/components/WavePromo";
 import { getFeaturedProducts } from "@/sanity/lib/products/getAllFeatureProduct";
 import CategoryView from "@/components/CategoryView";
 
@@ -26,9 +26,7 @@ export default async function Home() {
                 <CategoryView categories={categories} />
             </div>
 
-            <div>
-                <WavePromo />
-            </div>
+            <div>{/* <WavePromo /> */}</div>
 
             <div>
                 <NewArrivalSection products={newArrivalProducts} />

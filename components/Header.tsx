@@ -52,7 +52,7 @@ const Header = () => {
                     {/* Logo Image */}
                     <div className="ml-4 flex items-center">
                         <Image
-                            src="/images/new-logo2.png" // Path to your logo image
+                            src="/images/logo.png" // Path to your logo image
                             alt="SpectraStore Logo"
                             width={150}
                             height={150}

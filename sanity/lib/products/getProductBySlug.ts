@@ -3,22 +3,18 @@ import { sanityFetch } from "../live"; // Sanity fetch method
 
 export const getProductBySlug = async (slug: string) => {
     const PRODUCT_BY_ID_QUERY = `
-    *[ _type == "product" && slug.current == $slug ][0] {
+  *[_type == "product" && slug.current == $slug][0]{
       _id,
-      _type,
-      _createdAt,
-      _updatedAt,
       name,
-      slug,
-      images,
-      description,
+      "images": images[].asset->url,
+      "keyFeatures": coalesce(keyFeatures, []),
       mrp,
       mop,
-      keyFeatures,
-      categories,
-      stock
-    }
-  `;
+      description,
+      "banner": banner[].asset->url,
+      stock,
+  }
+`;
 
     try {
         const result = await sanityFetch({

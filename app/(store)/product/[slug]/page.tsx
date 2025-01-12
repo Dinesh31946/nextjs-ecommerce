@@ -1,83 +1,30 @@
-import React from "react";
-import Image from "next/image";
-import { PortableText } from "@portabletext/react";
-import AddToBasketButton from "@/components/AddToBasketButton";
+import { ProductDetails } from "@/components/ProductDetails";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
-import { imageUrl } from "@/lib/imageUrl";
-import { notFound } from "next/navigation";
-import { Product } from "@/sanity.types";
 
 // Define the correct type for your page props
 interface ProductPageProps {
     params: Promise<{ slug: string }>;
 }
 
-// The component is marked as async
-const ProductPage = async ({ params }: ProductPageProps) => {
-    // Await params and then destructure slug
-    const { slug } = await params;
+export default async function ProductPage({ params }: ProductPageProps) {
+    const { slug } = await params; // Ensure `params` resolves correctly
+    // console.log("Slug:", slug); // Debug: Log the slug value
 
-    // Fetch the product data on the server side
-    const product: Product | null = await getProductBySlug(slug);
-
-    if (!product) {
-        return notFound(); // Handle 404 if the product is not found
+    if (!slug) {
+        return <p>Invalid product slug</p>; // Handle missing slug
     }
 
-    // Determine if the product is out of stock
-    const isOutOfStock = product.stock != null && product.stock <= 0;
+    const productData = await getProductBySlug(slug);
 
-    // Set the image URL
-    const image = product.images?.[0]?.asset?._ref;
-    const imageUrlSrc = image
-        ? imageUrl(image).url()
-        : "/path/to/fallback/image.jpg";
+    if (!productData) {
+        return <p>Product not found</p>; // Handle 404
+    }
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Product Image */}
-                <div
-                    className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${
-                        isOutOfStock ? "opacity-50" : ""
-                    }`}
-                >
-                    {product.images && (
-                        <Image
-                            src={imageUrlSrc}
-                            alt={product.name || "Product Image"}
-                            fill
-                            className="object-contain transition-transform duration-300 hover:scale-105"
-                        />
-                    )}
-                    {isOutOfStock && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                            <span className="text-white font-bold text-lg">
-                                Out Of Stock
-                            </span>
-                        </div>
-                    )}
-                </div>
-
-                {/* Product Details */}
-                <div className="flex flex-col justify-between">
-                    <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-                    <div className="text-xl font-semibold mb-4">
-                        Rs {product.mop?.toFixed(2)}
-                    </div>
-                    <div className="prose max-w-none mb-6">
-                        {Array.isArray(product.description) && (
-                            <PortableText value={product.description} />
-                        )}
-                    </div>
-                    <AddToBasketButton
-                        product={product}
-                        disabled={isOutOfStock}
-                    />
-                </div>
-            </div>
-        </div>
+        <ProductDetails
+            {...productData}
+            product={productData}
+            features={productData.keyFeatures}
+        />
     );
-};
-
-export default ProductPage;
+}
