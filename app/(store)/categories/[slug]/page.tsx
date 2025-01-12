@@ -1,20 +1,14 @@
 import CategoryView from "@/components/CategoryView";
 import { getAllCategories } from "@/sanity/lib/products/getAllCetgories";
 
-interface CategoryPageProps {
-    params: { slug: string };
-}
-
-async function CategoryPage({ params }: CategoryPageProps) {
-    const { slug } = params; // No need for await here, as it's not a promise
-
+async function CategoryPage() {
     // Fetch category data
     const categories = await getAllCategories();
 
     return (
         <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-                <h1 className="text-3xl font-bold mb-6 text-center">
+                {/* <h1 className="text-3xl font-bold mb-6 text-center">
                     {slug
                         .split("-")
                         .map(
@@ -23,7 +17,7 @@ async function CategoryPage({ params }: CategoryPageProps) {
                         )
                         .join(" ")}{" "}
                     Collection
-                </h1>
+                </h1> */}
                 <CategoryView categories={categories} />{" "}
                 {/* Updated component */}
             </div>

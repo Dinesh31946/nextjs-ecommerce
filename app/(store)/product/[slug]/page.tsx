@@ -1,4 +1,3 @@
-// app/products/[slug]/page.tsx
 import React from "react";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
@@ -14,7 +13,7 @@ interface ProductPageProps {
 
 // Server Component that fetches the product data using Sanity
 const ProductPage = async ({ params }: ProductPageProps) => {
-    const { slug } = params;
+    const { slug } = await params; // Ensure params is awaited
 
     // Fetch the product data on the server side
     const product: Product | null = await getProductBySlug(slug);
@@ -26,7 +25,6 @@ const ProductPage = async ({ params }: ProductPageProps) => {
     // Determine if the product is out of stock
     const isOutOfStock = product.stock != null && product.stock <= 0;
 
-    // const image = images?.[0]?.asset?._ref;
     const image = product.images?.[0]?.asset?._ref;
     const imageUrlSrc = image
         ? imageUrl(image).url()
@@ -37,9 +35,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Product Image */}
                 <div
-                    className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${
-                        isOutOfStock ? "opacity-50" : ""
-                    }`}
+                    className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
                 >
                     {product.images && (
                         <Image

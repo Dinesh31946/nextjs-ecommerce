@@ -214,7 +214,8 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
                                 <Image
                                     src={
                                         selectedCategory?.bannerImage?.asset
-                                            ?.url || "/default-banner.jpg"
+                                            ?.url ||
+                                        "/images/default-banner.jpg"
                                     }
                                     alt={`${selectedCategory?.title || "Category"} banner`}
                                     fill
