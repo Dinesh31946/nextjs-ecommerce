@@ -6,7 +6,7 @@ import { Product } from "@/sanity.types";
 import { imageUrl } from "@/lib/imageUrl";
 import { useEffect, useState } from "react";
 import useBasketStore from "@/app/(store)/store";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
     const { addItem, removeItem, getItemCount } = useBasketStore();
     const ItemCount = getItemCount(product._id);
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const [isClient, setIsClient] = useState(false);
 
