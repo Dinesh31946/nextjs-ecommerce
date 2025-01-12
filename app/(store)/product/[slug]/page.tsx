@@ -7,13 +7,15 @@ import { imageUrl } from "@/lib/imageUrl";
 import { notFound } from "next/navigation";
 import { Product } from "@/sanity.types";
 
+// Modify the type here to ensure compatibility with Next.js page routing
 interface ProductPageProps {
     params: { slug: string };
 }
 
-// Server Component that fetches the product data using Sanity
+// Make sure that async function properly handles the awaited params
 const ProductPage = async ({ params }: ProductPageProps) => {
-    const { slug } = await params; // Ensure params is awaited
+    // Directly destructure `slug` from `params` without the `await`
+    const { slug } = params;
 
     // Fetch the product data on the server side
     const product: Product | null = await getProductBySlug(slug);
