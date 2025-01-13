@@ -52,11 +52,11 @@ const Header = () => {
                     {/* Logo Image */}
                     <div className="ml-4 flex items-center">
                         <Image
-                            src="/images/logo.png" // Path to your logo image
+                            src="/images/logo.png"
                             alt="SpectraStore Logo"
                             width={150}
                             height={150}
-                            className="object-contain"
+                            className="object-contain p-0"
                             sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 200px"
                             priority
                         />
