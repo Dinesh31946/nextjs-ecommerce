@@ -40,7 +40,7 @@ function AddToBasketButton({ product, disabled }: AddToBasketButtonProps) {
             <span className="w-8 text-center font-semibold"> {ItemCount}</span>
             <button
                 onClick={() => addItem(product)}
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${disabled ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-6000"} `}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${disabled ? "bg-gray-400 cursor-not-allowed" : "bg-[#86d7ff] hover:bg-blue-6000"} `}
                 disabled={disabled}
             >
                 <span className="text-xl font-bold text-white"> + </span>

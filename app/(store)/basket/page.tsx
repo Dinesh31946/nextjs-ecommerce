@@ -161,13 +161,13 @@ function BasketPage() {
                         <button
                             onClick={handleCheckout}
                             disabled={isLoading}
-                            className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-blue-400"
+                            className="mt-4 w-full px-4 py-2 rounded border-4 border-[#86d7ff] bg-white text-[#86d7ff] font-bold transition duration-300 hover:bg-gradient-to-r hover:from-[#86d7ff] hover:to-[#2b87d1] hover:text-white disabled:bg-gray-600 disabled:text-white "
                         >
                             {isLoading ? "Processing" : "Checkout"}
                         </button>
                     ) : (
                         <SignInButton mode="modal">
-                            <button className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            <button className="mt-4 w-full px-4 py-2 rounded border-4 border-[#86d7ff] bg-white text-[#86d7ff] font-bold transition duration-300 hover:bg-gradient-to-r hover:from-[#86d7ff] hover:to-[#2b87d1] hover:text-white">
                                 Sign in to Checkout
                             </button>
                         </SignInButton>
