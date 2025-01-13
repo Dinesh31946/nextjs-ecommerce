@@ -51,7 +51,7 @@ export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
                 if (!match) {
                     throw new Error(`Malformed asset URL: ${url}`);
                 }
-                const [_, assetId, dimensions, format] = match;
+                const [assetId, dimensions, format] = match;
                 return {
                     asset: {
                         _ref: `image-${assetId}-${dimensions}-${format}`,
