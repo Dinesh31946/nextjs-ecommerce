@@ -8,6 +8,10 @@ import { ServiceIcons } from "./ui/service-icons";
 
 interface ProductDetailsProps {
     _id: string;
+    _type: "product";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
     name: string;
     images: string[];
     features?: string[]; // Make this optional
@@ -20,6 +24,10 @@ interface ProductDetailsProps {
 
 export function ProductDetails({
     _id,
+    _type,
+    _createdAt,
+    _updatedAt,
+    _rev,
     name,
     images,
     features = [], // Default to an empty array
@@ -29,8 +37,15 @@ export function ProductDetails({
 }: ProductDetailsProps) {
     // Create a product object
     const product = {
-        _id, // Include _id here
+        _id,
+        _type,
+        _createdAt,
+        _updatedAt,
+        _rev,
         name,
+        images,
+        mrp,
+        mop,
     };
 
     return (

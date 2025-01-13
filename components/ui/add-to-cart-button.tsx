@@ -10,6 +10,13 @@ import { Product } from "@/sanity.types";
 interface ProductMinimal {
     _id: string;
     name: string;
+    _type: "product";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    images: string[]; // Array of image URLs
+    mrp: number;
+    mop: number;
 }
 
 interface AddToCartButtonProps {
@@ -17,7 +24,7 @@ interface AddToCartButtonProps {
     disabled?: boolean;
 }
 
-export function AddToCartButton({ product }: AddToCartButtonProps) {
+export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
     const { addItem, removeItem, getItemCount } = useBasketStore();
     const [isAdded, setIsAdded] = useState(false); // Local state to track the button's added status
 
@@ -34,25 +41,39 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
         const fullProduct: Product = {
             _id: product._id,
             _type: "product",
-            _createdAt: new Date().toISOString(),
-            _updatedAt: new Date().toISOString(),
-            _rev: "",
+            _createdAt: product._createdAt,
+            _updatedAt: product._updatedAt,
+            _rev: product._rev,
             name: product.name,
-            slug: undefined,
-            images: [],
-            description: [],
-            mrp: undefined,
-            mop: undefined,
-            keyFeatures: [],
-            categories: [],
-            isFeatured: false,
-            isNewArrival: false,
-            banner: [],
-            stock: undefined,
+            slug: undefined, // Adjust as needed
+            images: product.images.map((url, index) => {
+                const match = url.match(/\/([^/]+)-(\d+x\d+)\.(\w+)$/);
+                if (!match) {
+                    throw new Error(`Malformed asset URL: ${url}`);
+                }
+                const [_, assetId, dimensions, format] = match;
+                return {
+                    asset: {
+                        _ref: `image-${assetId}-${dimensions}-${format}`,
+                        _type: "reference",
+                    },
+                    _type: "image",
+                    _key: `image-${index}`,
+                };
+            }),
+            description: [], // Adjust as needed
+            mrp: product.mrp, // Adjust as needed
+            mop: product.mop, // Adjust as needed
+            keyFeatures: [], // Adjust as needed
+            categories: [], // Adjust as needed
+            isFeatured: false, // Adjust as needed
+            isNewArrival: false, // Adjust as needed
+            banner: [], // Adjust as needed
+            stock: undefined, // Adjust as needed
         };
 
         if (itemCount > 0) {
-            removeItem(fullProduct._id); // Remove item if already in the cart
+            removeItem(product._id); // Remove item if already in the cart
             toast.info(`${product.name} removed from the basket!`, {
                 position: "top-right",
                 autoClose: 2000,
@@ -64,7 +85,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
                 style: { backgroundColor: "#ff4d4d" }, // Red for removal
             });
         } else {
-            addItem(fullProduct); // Add item if not in the cart
+            addItem(fullProduct); // Add the transformed product to the basket
             toast.success(`${product.name} added to the basket!`, {
                 position: "top-right",
                 autoClose: 2000,
@@ -84,12 +105,13 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
     return (
         <Button
             onClick={handleClick}
+            disabled={disabled}
             className={`
-                relative overflow-hidden transition-all duration-300 ease-in-out
-                ${isAdded ? "bg-green-500 hover:bg-green-600" : "bg-[#86d7ff] hover:bg-[#5ec9ff]"}
-                text-white font-semibold py-2 px-6 rounded-full
-                transform hover:scale-105 active:scale-95
-            `}
+        relative overflow-hidden transition-all duration-300 ease-in-out
+        ${isAdded ? "bg-green-500 hover:bg-green-600" : "bg-[#86d7ff] hover:bg-[#5ec9ff]"}
+        text-white font-semibold py-2 px-6 rounded-full
+        transform hover:scale-105 active:scale-95
+      `}
         >
             <span
                 className={`flex items-center transition-all duration-300 ${isAdded ? "opacity-0" : "opacity-100"}`}
@@ -99,10 +121,10 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
             </span>
             <span
                 className={`
-                    absolute inset-0 flex items-center justify-center
-                    transition-all duration-300
-                    ${isAdded ? "opacity-100 transform translate-y-0" : "opacity-0 transform translate-y-full"}
-                `}
+          absolute inset-0 flex items-center justify-center
+          transition-all duration-300
+          ${isAdded ? "opacity-100 transform translate-y-0" : "opacity-0 transform translate-y-full"}
+        `}
             >
                 <Check className="w-5 h-5 mr-2" />
                 Added!
