@@ -51,7 +51,7 @@ export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
                 if (!match) {
                     throw new Error(`Malformed asset URL: ${url}`);
                 }
-                const [assetId, dimensions, format] = match;
+                const [, assetId, dimensions, format] = match; // Destructure only what you need
                 return {
                     asset: {
                         _ref: `image-${assetId}-${dimensions}-${format}`,
@@ -61,6 +61,7 @@ export function AddToCartButton({ product, disabled }: AddToCartButtonProps) {
                     _key: `image-${index}`,
                 };
             }),
+
             description: [], // Adjust as needed
             mrp: product.mrp, // Adjust as needed
             mop: product.mop, // Adjust as needed
