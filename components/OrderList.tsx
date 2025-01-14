@@ -54,12 +54,10 @@ const OrderList = ({ orders }: OrderListProps) => {
                         <div className="space-y-4 mt-4">
                             {/* Loop through each product in the order */}
                             {order.items.map((item, index) => {
-                                const productName = item.product
-                                    ? item.product.name
-                                    : "Unknown Product";
-                                const productPrice = item.product
-                                    ? item.product.price
-                                    : 0;
+                                // Ensure product details are available
+                                const productName =
+                                    item.product?.name || "Unknown Product";
+                                const productPrice = item.product?.price || 0;
 
                                 return (
                                     <div

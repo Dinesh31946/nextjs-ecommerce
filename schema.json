@@ -591,13 +591,6 @@
         },
         "optional": true
       },
-      "clerkUserId": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "customerName": {
         "type": "objectAttribute",
         "value": {
@@ -612,6 +605,41 @@
         },
         "optional": true
       },
+      "phone": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "address": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "city": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "state": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "pincode": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "products": {
         "type": "objectAttribute",
         "value": {
@@ -619,7 +647,7 @@
           "of": {
             "type": "object",
             "attributes": {
-              "product": {
+              "productId": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "object",
@@ -655,6 +683,13 @@
                   "type": "number"
                 },
                 "optional": true
+              },
+              "price": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "number"
+                },
+                "optional": true
               }
             },
             "rest": {
@@ -683,13 +718,6 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
-        },
-        "optional": true
-      },
-      "amountDiscount": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
         },
         "optional": true
       },

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import useBasketStore from "../store";
 import { imageUrl } from "@/lib/imageUrl";
+import { v4 as uuidv4 } from "uuid";
 
 // Import PayPalScriptProvider and PayPalButtons
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -16,7 +17,7 @@ import { createClient } from "@sanity/client";
 const client = createClient({
     projectId: "kl91j914",
     dataset: "production",
-    token: "skv1vQZ1Fa32nXyDx5GkQnQPvkBtAIYJOZhgkOBtgwpAzVW0CtjYXYMSziVlOs0IkKcP7Gl59iROXxT6wqPHIYElkPrOJttZU1MyjMkVEQyYcxMRmSEY6SGsJAkd74omT5cBiJIJV5xbfIZf3baUGWHi12onSNxWWL8s0xVmXhpzPuYXw2Ia",
+    token: "skWLEFFIxKAlYzsPRNFpCyC2V3SABb5nFhJlwTvEfLMSeAyDJntOY7YtE4iYA7QWbL1NOvpjvHuc8WiiPvlAjKpYVtLlmguA2CYDHE2hUYm0CzbVbzj1zkobZUWZSTNyGgDSNPoc8KC0sPLNG2b6KPtaKmTMYNiQYR0Uciqy4Zt1msXgwOOb",
     apiVersion: "2023-01-01",
     useCdn: false,
 });
@@ -86,6 +87,8 @@ export default function ShippingPage() {
     if (!isSignedIn) {
         return <RedirectToSignIn />; // Redirect to Clerk's sign-in page
     }
+
+    console.log("grouped Items:" + JSON.stringify(groupedItems));
 
     return (
         // Wrap the whole content in PayPalScriptProvider
@@ -456,49 +459,53 @@ export default function ShippingPage() {
                                                 //     );
 
                                                 const products = groupedItems
-                                                    .map((item) => {
-                                                        if (!item.product._id) {
-                                                            console.error(
-                                                                "Invalid product ID for item:",
-                                                                item
-                                                            );
-                                                            return null; // Skip invalid items
-                                                        }
-                                                        return {
-                                                            _key: crypto.randomUUID(), // Or use uuidv4() if crypto.randomUUID is unavailable
-                                                            product: {
-                                                                _type: "reference",
-                                                                _ref: item
-                                                                    .product
-                                                                    ._id, // Reference to the correct product
-                                                            },
-                                                            quantity:
-                                                                item.quantity,
-                                                        };
-                                                    })
-                                                    .filter(Boolean); // Remove null items
+                                                    .filter(
+                                                        (item) =>
+                                                            item.product &&
+                                                            item.product._id // Ensure valid product references
+                                                    )
+                                                    .map((item) => ({
+                                                        _key: crypto.randomUUID(), // Unique key for Sanity array
+                                                        productId: {
+                                                            _type: "reference", // Specify this is a reference type
+                                                            _ref: item.product
+                                                                ._id, // Reference the product document ID
+                                                        },
+                                                        quantity: item.quantity,
+                                                        price: item.product.mop, // Minimum Operating Price
+                                                    }));
 
-                                                // Sanity document creation for the "order" schema
                                                 client
                                                     .create({
-                                                        _type: "order", // Refers to your "order" schema in Sanity
+                                                        _type: "order",
                                                         orderNumber:
-                                                            transactionId, // Use PayPal transaction ID
+                                                            transactionId,
                                                         paypalTransactionId:
-                                                            transactionId, // Explicitly save PayPal transaction ID
-                                                        customerName: payerName, // Customer's full name from PayPal
-                                                        email: payerEmail, // Customer's email from PayPal
-                                                        clerkUserId: payerId, // Optional: Save PayPal payer ID for reference
-                                                        products: products, // Product details (mapped from cart)
+                                                            transactionId,
+                                                        customerName:
+                                                            formData.fullName,
+                                                        email: formData.email,
+                                                        phone: formData.phone,
+                                                        address:
+                                                            formData.address,
+                                                        city: formData.city,
+                                                        state: formData.state,
+                                                        pincode:
+                                                            formData.pincode,
+                                                        products, // Transformed products array
                                                         totalPrice:
-                                                            parseFloat(amount), // Total amount from PayPal
-                                                        currency: currency, // Currency from PayPal
-                                                        status: status, // Status is "paid" since the transaction was successful
-                                                        orderDate: orderDate, // Current date as the order date
+                                                            parseFloat(amount),
+                                                        currency: currency,
+                                                        status: "paid",
+                                                        orderDate:
+                                                            new Date().toISOString(),
                                                     })
-                                                    .then
-                                                    // (createdOrder) => {}
-                                                    ()
+                                                    .then((createdOrder) => {
+                                                        console.log(
+                                                            "Order created successfully:",
+                                                            createdOrder
+                                                        );
+                                                    })
                                                     .catch((error) => {
                                                         console.error(
                                                             "Error saving order in Sanity:",

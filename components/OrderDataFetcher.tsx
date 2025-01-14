@@ -7,13 +7,14 @@ import { Order } from "@/app/(store)/orders/types";
 // Define types for the fetched data
 interface Product {
     name: string;
-    price: number;
+    price: number; // Represent price as price, not MRP
 }
 
-// interface ProductItem {
-//     product: Product | null;
-//     quantity: number;
-// }
+interface ProductItem {
+    product: Product | null;
+    quantity: number;
+    price: number;
+}
 
 interface SanityOrder {
     orderNumber: string;
@@ -23,30 +24,76 @@ interface SanityOrder {
     products: {
         product: Product | null;
         quantity: number;
+        price: number;
     }[];
 }
 
 // Define the async function to fetch orders from Sanity
+// const fetchOrders = async (): Promise<Order[]> => {
+//     const query = `*[_type == "order"]{
+//             _id,
+//             orderNumber,
+//             orderDate,
+//             status,
+//             totalPrice,
+//             products[] {
+//                 product->{
+//                     name,
+//                     mop
+//                 },
+//                 quantity,
+//                 price
+//             }
+//         }`;
+
+//     try {
+//         const orders: SanityOrder[] = await client.fetch(query); // Type the fetched data
+
+//         return orders.map((order) => ({
+//             id: order.orderNumber,
+//             date: new Date(order.orderDate).toLocaleDateString(),
+//             status: order.status as Order["status"],
+//             total: order.totalPrice,
+//             items: order.products
+//                 .map((item) => {
+//                     const product = item.product || null;
+//                     return {
+//                         product,
+//                         quantity: item.quantity,
+//                         price: item.price, // Include the price here
+//                     };
+//                 })
+//                 .filter(
+//                     (item) =>
+//                         item.product !== null && item.product !== undefined
+//                 ),
+//         }));
+//     } catch (error) {
+//         console.error("Error fetching orders:", error);
+//         throw new Error("Failed to fetch orders");
+//     }
+// };
+
 const fetchOrders = async (): Promise<Order[]> => {
     const query = `*[_type == "order"]{
-            _id,
-            orderNumber,
-            orderDate,
-            status,
-            totalPrice,
-            products[] {
-                product->{ 
-                    name,
-                    mop
-                },
-                quantity
-            }
-        }`;
+        _id,
+        orderNumber,
+        orderDate,
+        status,
+        totalPrice,
+        products[] {
+            productId->{
+                name,
+                price
+            },
+            quantity,
+            price
+        }
+    }`;
 
     try {
         const orders: SanityOrder[] = await client.fetch(query); // Type the fetched data
 
-        // Safeguard: Ensure the 'product' exists before trying to access it
         return orders.map((order) => ({
             id: order.orderNumber,
             date: new Date(order.orderDate).toLocaleDateString(),
@@ -54,17 +101,17 @@ const fetchOrders = async (): Promise<Order[]> => {
             total: order.totalPrice,
             items: order.products
                 .map((item) => {
-                    // Safeguard against null or undefined product
                     const product = item.product || null;
                     return {
                         product,
                         quantity: item.quantity,
+                        price: item.price, // Include price here as well
                     };
                 })
                 .filter(
                     (item) =>
                         item.product !== null && item.product !== undefined
-                ), // Filter out items with null or undefined product
+                ),
         }));
     } catch (error) {
         console.error("Error fetching orders:", error);
@@ -79,7 +126,6 @@ export const useOrders = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Wrap the async logic inside an immediately invoked function expression (IIFE)
         const loadOrders = async () => {
             try {
                 const fetchedOrders = await fetchOrders();

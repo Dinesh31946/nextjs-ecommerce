@@ -69,18 +69,18 @@ export function ProductDetails({
                     ))}
 
                     {/* Key Features */}
-                    <div className="mt-6">
-                        <h3 className="text-lg font-medium">Key Features</h3>
-                        <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {Array.isArray(features) && features.length > 0 ? (
-                                features.map((feature, index) => (
+                    {Array.isArray(features) && features.length > 0 && (
+                        <div className="mt-6">
+                            <h3 className="text-lg font-medium">
+                                Key Features
+                            </h3>
+                            <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {features.map((feature, index) => (
                                     <KeyFeature key={index} feature={feature} />
-                                ))
-                            ) : (
-                                <p>No features available.</p>
-                            )}
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Pricing */}
                     <div className="mt-6 flex items-center space-x-4">
