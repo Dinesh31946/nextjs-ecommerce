@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Category {
     _id: string;
@@ -43,6 +45,7 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
     const [autoRotateIndex, setAutoRotateIndex] = useState(0);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -165,10 +168,14 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
                                 </span>
                             </p>
 
-                            <button className="inline-flex max-w-40 max-h-20 items-center px-6 py-3 text-base font-semibold text-[#86d7ff] bg-white border-4 border-[#86d7ff] rounded-full shadow-md hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#86d7ff] hover:text-white transition-all duration-300 ease-in-out">
-                                Explore
-                                <ChevronRight className="ml-2 h-5 w-5" />
-                            </button>
+                            <Link
+                                href={`/categories/${selectedCategory?.slug?.current}`}
+                            >
+                                <button className="inline-flex max-w-40 max-h-20 items-center px-6 py-3 text-base font-semibold text-[#86d7ff] bg-white border-4 border-[#86d7ff] rounded-full shadow-md hover:bg-gradient-to-r hover:from-blue-400 hover:to-[#86d7ff] hover:text-white transition-all duration-300 ease-in-out">
+                                    Explore
+                                    <ChevronRight className="ml-2 h-5 w-5" />
+                                </button>
+                            </Link>
                         </div>
 
                         {/* Banner Image Section */}

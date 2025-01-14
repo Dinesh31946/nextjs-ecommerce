@@ -84,7 +84,7 @@ export function ProductCard({ product }: ProductCardProps) {
                         alt={name || "Image"}
                         layout="fill"
                         objectFit="cover"
-                        className="transition-all duration-300 group-hover:scale-110"
+                        className="transition-all duration-300 group-hover:scale-110 "
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         {/* <Button
@@ -113,6 +113,12 @@ export function ProductCard({ product }: ProductCardProps) {
                         </span>
                         <span className="text-lg font-bold text-[#86d7ff]">
                             MOP: ₹{mop}
+                            <span className="text-gray-400 text-sm pl-3 mb-5">
+                                {mrp && mop
+                                    ? Math.round((1 - mop / mrp) * 100)
+                                    : 0}
+                                % off
+                            </span>
                         </span>
                     </div>
                     <Button
