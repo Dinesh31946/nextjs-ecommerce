@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import useBasketStore from "../store";
 import { imageUrl } from "@/lib/imageUrl";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 // Import PayPalScriptProvider and PayPalButtons
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -404,17 +404,17 @@ export default function ShippingPage() {
                                             .capture()
                                             .then((details) => {
                                                 // Capture PayPal transaction details
-                                                const payerName =
-                                                    details.payer?.name
-                                                        ?.given_name +
-                                                    " " +
-                                                    details.payer?.name
-                                                        ?.surname;
-                                                const payerEmail =
-                                                    details.payer
-                                                        ?.email_address;
-                                                const payerId =
-                                                    details.payer?.payer_id;
+                                                // const payerName =
+                                                //     details.payer?.name
+                                                //         ?.given_name +
+                                                //     " " +
+                                                //     details.payer?.name
+                                                //         ?.surname;
+                                                // const payerEmail =
+                                                //     details.payer
+                                                //         ?.email_address;
+                                                // const payerId =
+                                                //     details.payer?.payer_id;
                                                 const transactionId =
                                                     details.id;
 
@@ -438,9 +438,9 @@ export default function ShippingPage() {
                                                 }
 
                                                 // Prepare order details
-                                                const orderDate =
-                                                    new Date().toISOString();
-                                                const status = "paid"; // Assuming the payment was successful
+                                                // const orderDate =
+                                                //     new Date().toISOString();
+                                                // const status = "paid"; // Assuming the payment was successful
 
                                                 //capturing the product details
                                                 // const products =

@@ -1,7 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/sanity.types";
-import { imageUrl } from "@/lib/imageUrl";
+import Image from "next/image";
+// import { imageUrl } from "@/lib/imageUrl";
 
 interface ProductCardProps {
     product: Product;
@@ -9,19 +10,19 @@ interface ProductCardProps {
 }
 
 export function SampleProductCard({ product }: ProductCardProps) {
-    const { name, mrp, mop, images, slug } = product;
+    const { name, mrp, mop, images } = product;
 
     const image = images?.[0]?.asset?._ref;
-    const imageUrlSrc = image
-        ? imageUrl(image).url()
-        : "/path/to/fallback/image.jpg";
+    // const imageUrlSrc = image
+    //     ? imageUrl(image).url()
+    //     : "/path/to/fallback/image.jpg";
 
     return (
         <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
             <CardContent className="p-0">
-                <img
-                    src={image}
-                    alt={name}
+                <Image
+                    src={image || "images"}
+                    alt={name || "unknown"}
                     className="w-full h-48 object-cover"
                 />
                 <div className="p-4 space-y-4">

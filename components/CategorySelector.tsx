@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface Category {
@@ -45,7 +45,7 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
     const [autoRotateIndex, setAutoRotateIndex] = useState(0);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
-    const router = useRouter();
+    // const router = useRouter();
 
     useEffect(() => {
         const interval = setInterval(() => {

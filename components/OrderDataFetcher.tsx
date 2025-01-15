@@ -10,11 +10,11 @@ interface Product {
     price: number; // Represent price as price, not MRP
 }
 
-interface ProductItem {
-    product: Product | null;
-    quantity: number;
-    price: number;
-}
+// interface ProductItem {
+//     product: Product | null;
+//     quantity: number;
+//     price: number;
+// }
 
 interface SanityOrder {
     orderNumber: string;
