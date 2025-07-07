@@ -4,8 +4,17 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { getPaymentInfoClientSide } from "@/sanity/lib/paymentInfo/getPaymentInfo"; 
 
+// 🧠 Updated correct type
+type PaymentInfo = {
+  qrUrl?: string;
+  accountHolderName: string;
+  upiId: string;
+  bankAccountNumber: string;
+  ifscCode: string;
+};
+
 export default function PaymentInfoClient() {
-  const [paymentInfo, setPaymentInfo] = useState<any>(null);
+  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -28,6 +28,18 @@ interface FormData {
   pincode: string;
 }
 
+type Product = {
+  _id?: string;
+  _ref?: string;
+  id?: string;
+  mop?: number;
+};
+
+type Item = {
+  product: Product;
+  quantity: number;
+};
+
 export default function ManualShippingPage() {
   const router = useRouter();
   const { isLoaded, isSignedIn } = useAuth();
@@ -74,11 +86,31 @@ export default function ManualShippingPage() {
     }
 
     // build the products array exactly as in your schema
-    const products = groupedItems.map((item) => {
+    // const products = groupedItems.map((item) => {
+    //   const refId =
+    //     item.product._id ||        // if you fetched the full document
+    //     (item.product as any)._ref || // if it's already a reference object
+    //     (item.product as any).id;     // or another field
+
+    //   if (!refId) {
+    //     console.error("❌ Missing product ID on item:", item);
+    //   }
+
+    //   return {
+    //     _key: crypto.randomUUID(),
+    //     productId: {
+    //       _type: "reference",
+    //       _ref: refId,
+    //     },
+    //     quantity: item.quantity,
+    //     price: item.product.mop ?? 0,
+    //   };
+    // });
+    const products = groupedItems.map((item: Item) => {
       const refId =
-        item.product._id ||        // if you fetched the full document
-        (item.product as any)._ref || // if it's already a reference object
-        (item.product as any).id;     // or another field
+        item.product._id ||
+        item.product._ref ||
+        item.product.id;
 
       if (!refId) {
         console.error("❌ Missing product ID on item:", item);
