@@ -84,28 +84,6 @@ export default function ManualShippingPage() {
       alert("Please enter the transaction ID");
       return;
     }
-
-    // build the products array exactly as in your schema
-    // const products = groupedItems.map((item) => {
-    //   const refId =
-    //     item.product._id ||        // if you fetched the full document
-    //     (item.product as any)._ref || // if it's already a reference object
-    //     (item.product as any).id;     // or another field
-
-    //   if (!refId) {
-    //     console.error("❌ Missing product ID on item:", item);
-    //   }
-
-    //   return {
-    //     _key: crypto.randomUUID(),
-    //     productId: {
-    //       _type: "reference",
-    //       _ref: refId,
-    //     },
-    //     quantity: item.quantity,
-    //     price: item.product.mop ?? 0,
-    //   };
-    // });
     const products = groupedItems.map((item: Item) => {
       const refId =
         item.product._id || 
