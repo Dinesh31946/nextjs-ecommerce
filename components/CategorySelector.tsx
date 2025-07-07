@@ -52,7 +52,7 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
             setAutoRotateIndex(
                 (prevIndex) => (prevIndex + 1) % categories.length
             );
-        }, 20000);
+        }, 3000);
 
         return () => clearInterval(interval);
     }, [categories.length]);
@@ -179,7 +179,7 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
                         </div>
 
                         {/* Banner Image Section */}
-                        {/* <div className="md:w-1/2 relative h-56 md:h-auto">
+                        <div className="md:w-1/2 relative h-56 md:h-auto">
                             <motion.div
                                 initial={{ scale: 1 }}
                                 animate={{ scale: 1.05 }}
@@ -202,54 +202,6 @@ export function CategorySelector({ categories }: CategorySelectorProps) {
                                     className="object-cover"
                                     priority
                                 />
-                            </motion.div>
-                        </div> */}
-
-                        <div className="relative w-full md:w-3/4 h-64 md:h-80 lg:h-96 lg:my-auto overflow-hidden rounded-lg shadow-xl">
-                            {/* Parallax Background Animation */}
-                            <motion.div
-                                initial={{ scale: 1.1 }}
-                                animate={{ scale: 1 }}
-                                transition={{
-                                    repeat: Infinity,
-                                    repeatType: "reverse",
-                                    duration: 6,
-                                    ease: "easeInOut",
-                                }}
-                                className="absolute inset-0 w-full h-full z-0"
-                            >
-                                <Image
-                                    src={
-                                        selectedCategory?.bannerImage?.asset
-                                            ?.url ||
-                                        "/images/default-banner.jpg"
-                                    }
-                                    alt={`${selectedCategory?.title || "Category"} banner`}
-                                    fill
-                                    className="object-cover object-center"
-                                    priority
-                                />
-                            </motion.div>
-
-                            {/* Layered Shape Overlays */}
-                            <div
-                                className="absolute inset-0 z-10 pointer-events-none"
-                                style={{
-                                    background:
-                                        "linear-gradient(135deg, rgba(255,255,255,0.2), rgba(0,0,0,0.1))",
-                                }}
-                            ></div>
-
-                            {/* Category Title Overlay */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1, delay: 0.2 }}
-                                className="absolute inset-0 flex items-center justify-center z-20"
-                            >
-                                <h1 className="text-white text-2xl md:text-4xl lg:text-5xl font-bold text-shadow-lg">
-                                    {selectedCategory?.title || "Category"}
-                                </h1>
                             </motion.div>
                         </div>
                     </div>

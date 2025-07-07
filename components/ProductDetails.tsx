@@ -2,9 +2,11 @@
 
 // import { useId, useState, useEffect } from "react";
 import { ImageCarousel } from "./ui/image-carousel";
-import { KeyFeature } from "./ui/key-feature";
+// import { KeyFeature } from "./ui/key-feature";
 import { AddToCartButton } from "./ui/add-to-cart-button";
-import { ServiceIcons } from "./ui/service-icons";
+// import { ServiceIcons } from "./ui/service-icons";
+import VideoCard from "./ui/video-card";
+import Accordion from "./ui/how-to-use";
 
 interface ProductDetailsProps {
     _id: string;
@@ -20,6 +22,16 @@ interface ProductDetailsProps {
     description: { children: { text: string }[]; _key: string }[]; // Update type for `description`
     banner?: string[];
     stock?: number;
+    videoCards?: {
+        _id: string;
+        videoUrl: string;
+        description: string;
+    }[];
+    howToUseCard?: {
+        _id: string;
+        title: string;
+        description: string;
+    }[];
 }
 
 export function ProductDetails({
@@ -30,10 +42,12 @@ export function ProductDetails({
     _rev,
     name,
     images,
-    features = [], // Default to an empty array
+    // features = [], // Default to an empty array
     mrp,
     mop,
     description,
+    videoCards = [],
+    howToUseCard = [],
 }: ProductDetailsProps) {
     // Create a product object
     const product = {
@@ -70,7 +84,7 @@ export function ProductDetails({
                         ))}
 
                         {/* Key Features */}
-                        {Array.isArray(features) && features.length > 0 && (
+                        {/* {Array.isArray(features) && features.length > 0 && (
                             <div className="mt-6">
                                 <h3 className="text-lg font-medium">
                                     Key Features
@@ -84,7 +98,7 @@ export function ProductDetails({
                                     ))}
                                 </div>
                             </div>
-                        )}
+                        )} */}
 
                         {/* Pricing */}
                         <div className="mt-6 flex items-center space-x-4">
@@ -105,7 +119,70 @@ export function ProductDetails({
                     </div>
                 </div>
             </div>
-            <ServiceIcons />
+            {/* <ServiceIcons /> */}
+            
+            <hr className="my-8 border-t-2 border-gray-300" />
+            {videoCards.length > 0 && (
+                <div className="">
+                    <div className="text-4xl font-bold text-center my-6">
+                        Benefits
+                    </div>
+                    <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center px-4 pb-12">
+                        {videoCards.map((card) => (
+                            <VideoCard
+                            key={card._id}
+                            videoUrl={card.videoUrl}
+                            description={card.description}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            <hr className="my-8 border-t-2 border-gray-300" />
+
+            <div className="bg-gray-50">
+                <div className="py-20  space-y-12">
+                    <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
+                        How to use it
+                    </h2>
+
+                    {/* <Accordion
+                    title="How to use it?"
+                    description="This product offers excellent durability, top-tier performance, and eco-friendly materials. It's designed to deliver maximum satisfaction and long-term usage benefits."
+                    /> */}
+                    {howToUseCard.map((card) => (
+                        <Accordion
+                            key={card._id}
+                            title={card.title}
+                            description={card.description}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            <hr className="my-8 border-t-2 border-gray-300" />
+
+            <div className="">
+                <div className="text-center py-20 px-4 bg-white">
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
+                        Guaranteed Results ✨
+                    </h2>
+
+                    <p className="text-lg md:text-xl text-gray-800 font-semibold mb-2">
+                        <strong>PositiveGems Long-Time</strong> has amazed millions of people around the World with mind blowing results.
+                    </p>
+
+                    <p className="text-base md:text-lg text-gray-700 mb-1">
+                        We have 95% Repeat customer rate, meaning,
+                    </p>
+
+                    <p className="text-base md:text-lg font-semibold text-gray-900">
+                        For every 100 buyers, 95 comes back to buy more.
+                    </p>
+                </div>
+            </div>
+
         </>
     );
 }

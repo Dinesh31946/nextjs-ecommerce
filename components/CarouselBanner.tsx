@@ -24,7 +24,7 @@ export default function CarouselBanner() {
     useEffect(() => {
         const timer = setInterval(() => {
             nextSlide();
-        }, 10000);
+        }, 3000);
 
         return () => clearInterval(timer);
     }, []);

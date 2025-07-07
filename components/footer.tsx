@@ -17,7 +17,7 @@ export function Footer() {
                     {/* Brand and Tagline */}
                     <div>
                         <h2 className="text-2xl font-bold tracking-wide text-gray-800">
-                            SepctraStore
+                            PostiveGemes
                         </h2>
                         <p className="mt-4 text-gray-700">
                             Bringing comfort and style to your doorstep.
@@ -145,7 +145,7 @@ export function Footer() {
                             </li>
                             <li className="flex items-center space-x-3">
                                 <Mail className="h-6 w-6 text-gray-800" />
-                                <span>care@spectrastore.in</span>
+                                <span>care@positivegemes.in</span>
                             </li>
                         </ul>
                     </div>
@@ -154,7 +154,7 @@ export function Footer() {
                 {/* Bottom Section */}
                 <div className="mt-12 border-t border-gray-400 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-700">
                     <p>
-                        © {new Date().getFullYear()} SpectraStore. All rights
+                        © {new Date().getFullYear()} PositiveGemes. All rights
                         reserved.
                     </p>
                     <ul className="flex space-x-4 mt-4 md:mt-0">

@@ -26,7 +26,9 @@ export default async function Home() {
                 <CategoryView categories={categories} />
             </div>
 
-            <div>{/* <WavePromo /> */}</div>
+            {/* <div>
+                <WavePromo />
+            </div> */}
 
             <div>
                 <NewArrivalSection products={newArrivalProducts} />
