@@ -108,7 +108,7 @@ export default function ManualShippingPage() {
     // });
     const products = groupedItems.map((item: Item) => {
       const refId =
-        item.product._id ||
+        item.product._id || 
         item.product._ref ||
         item.product.id;
 
