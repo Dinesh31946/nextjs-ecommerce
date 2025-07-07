@@ -1,4 +1,3 @@
-// app/api/actions/submitReachUsForm/route.ts
 import { backendClient } from "../../../sanity/lib/backendClient"; // Your backend client import
 import { NextRequest, NextResponse } from "next/server";
 
