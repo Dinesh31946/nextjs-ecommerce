@@ -1,4 +1,6 @@
 import { ProductDetails } from "@/components/ProductDetails";
+import { getFAQsByProductSlug } from "@/sanity/lib/faq/getFAQsByProduct";
+import { getHowToUseByProductSlug } from "@/sanity/lib/howToUse/getHowToUseByProduct";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
 import { getVideoCardsByProductSlug } from "@/sanity/lib/videoCard/getVideoCardByProduct";
 
@@ -16,8 +18,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
     }
 
     const productData = await getProductBySlug(slug);
-
     const videoCards = await getVideoCardsByProductSlug(slug);
+    const howToUse = await getHowToUseByProductSlug(slug);
+    const faqs = await getFAQsByProductSlug(slug);
 
     if (!productData) {
         return <p>Product not found</p>; // Handle 404
@@ -29,6 +32,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             product={productData}
             features={productData.keyFeatures}
             videoCards={videoCards}
+            howToUse={howToUse}
+            faqs={faqs}
         />
     );
 }
