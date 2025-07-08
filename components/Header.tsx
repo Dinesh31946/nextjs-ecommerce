@@ -40,12 +40,12 @@ const Header = () => {
                     href="/"
                     className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer mx-auto sm:mx-0"
                 >
-                    SpectraStore
+                    PostiveGems
                 </Link> */}
                 <Link
                     href="/"
                     className="text-3xl font-extrabold text-gradient from-blue-500 to-purple-500 hover:opacity-80 cursor-pointer mx-auto sm:mx-0 flex items-center"
-                    aria-label="SpectraStore Logo"
+                    aria-label="PostiveGems Logo"
                 >
                     {/* <Logo /> */}
 
@@ -53,7 +53,7 @@ const Header = () => {
                     <div className="ml-4 flex items-center">
                         <Image
                             src="/images/logo.png"
-                            alt="SpectraStore Logo"
+                            alt="PostiveGems Logo"
                             width={150}
                             height={150}
                             className="object-contain p-0"

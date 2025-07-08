@@ -19,7 +19,7 @@ const Logo = () => {
                         letterSpacing: 1.5,
                     }}
                 >
-                    Spectra
+                    Postive
                 </text>
 
                 {/* Store Text */}
@@ -33,7 +33,7 @@ const Logo = () => {
                         letterSpacing: 1.5,
                     }}
                 >
-                    Store
+                    Gems
                 </text>
 
                 {/* Shopping Cart Icon */}
