@@ -13,7 +13,6 @@ interface ProductDetailsProps {
     _rev: string;
     name: string;
     images: string[];
-    features?: string[]; // Make this optional
     mrp: number;
     mop: number;
     description: { children: { text: string }[]; _key: string }[]; // Update type for `description`
@@ -29,7 +28,6 @@ export function ProductDetails({
     _rev,
     name,
     images,
-    features = [], // Default to an empty array
     mrp,
     mop,
     description,
