@@ -1,5 +1,6 @@
 import { ProductDetails } from "@/components/ProductDetails";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
+import { getVideoCardsByProductSlug } from "@/sanity/lib/videoCard/getVideoCardByProduct";
 
 // Define the correct type for your page props
 interface ProductPageProps {
@@ -16,6 +17,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     const productData = await getProductBySlug(slug);
 
+    const videoCards = await getVideoCardsByProductSlug(slug);
+
     if (!productData) {
         return <p>Product not found</p>; // Handle 404
     }
@@ -25,6 +28,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {...productData}
             product={productData}
             features={productData.keyFeatures}
+            videoCards={videoCards}
         />
     );
 }
