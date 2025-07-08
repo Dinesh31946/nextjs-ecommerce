@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Spectra Store",
-    description: "Spectra Store",
+    title: "Positive Gems",
+    description: "Positive Gems",
 };
 
 export default function RootLayout({
