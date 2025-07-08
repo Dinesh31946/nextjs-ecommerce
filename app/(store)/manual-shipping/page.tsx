@@ -11,11 +11,12 @@ import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 
 const client = createClient({
-    projectId: "kl91j914",
-    dataset: "production",
-    token: "skWLEFFIxKAlYzsPRNFpCyC2V3SABb5nFhJlwTvEfLMSeAyDJntOY7YtE4iYA7QWbL1NOvpjvHuc8WiiPvlAjKpYVtLlmguA2CYDHE2hUYm0CzbVbzj1zkobZUWZSTNyGgDSNPoc8KC0sPLNG2b6KPtaKmTMYNiQYR0Uciqy4Zt1msXgwOOb",
-    apiVersion: "2023-01-01",
-    useCdn: false,
+  projectId: "kl91j914",
+  dataset: "production",
+  token:
+    "skWLEFFIxKAlYzsPRNFpCyC2V3SABb5nFhJlwTvEfLMSeAyDJntOY7YtE4iYA7QWbL1NOvpjvHuc8WiiPvlAjKpYVtLlmguA2CYDHE2hUYm0CzbVbzj1zkobZUWZSTNyGgDSNPoc8KC0sPLNG2b6KPtaKmTMYNiQYR0Uciqy4Zt1msXgwOOb",
+  apiVersion: "2023-01-01",
+  useCdn: false,
 });
 
 const builder = imageUrlBuilder(client);
@@ -94,28 +95,6 @@ export default function ShippingPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    const fetchPaymentInfo = async () => {
-      const data = await client.fetch(
-        `*[_type == "paymentInfo"][0]{
-          upiId,
-          bank,
-          account,
-          qrCode{asset->{url}}
-        }`
-      );
-
-      setPaymentInfo({
-        upiId: data.upiId,
-        bank: data.bank,
-        account: data.account,
-        qrCodeUrl: builder.image(data.qrCode).url(),
-      });
-    };
-
-    fetchPaymentInfo();
-  }, []);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsFormSubmitted(true);
@@ -169,23 +148,28 @@ export default function ShippingPage() {
   if (!isLoaded) return <p>Loading...</p>;
   if (!isSignedIn) return <RedirectToSignIn />;
 
+  const fields: {
+    name: keyof FormData;
+    label: string;
+    type?: string;
+  }[] = [
+    { name: "fullName", label: "Full Name" },
+    { name: "email", label: "Email", type: "email" },
+    { name: "phone", label: "Phone Number" },
+    { name: "address", label: "Address", type: "textarea" },
+    { name: "city", label: "City" },
+    { name: "state", label: "State" },
+    { name: "pincode", label: "Pincode" },
+  ];
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid lg:grid-cols-2 gap-6">
-        {/* Shipping Form */}
         <motion.div className="order-2 lg:order-1">
           <div className="bg-white border p-6 rounded-lg">
             <h2 className="text-2xl font-bold mb-6">Shipping Details</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-              {[
-                { name: "fullName", label: "Full Name" },
-                { name: "email", label: "Email", type: "email" },
-                { name: "phone", label: "Phone Number" },
-                { name: "address", label: "Address", type: "textarea" },
-                { name: "city", label: "City" },
-                { name: "state", label: "State" },
-                { name: "pincode", label: "Pincode" },
-              ].map(({ name, label, type = "text" }) => (
+              {fields.map(({ name, label, type }) => (
                 <div key={name}>
                   <label htmlFor={name} className="block text-sm font-medium">
                     {label}
@@ -195,7 +179,7 @@ export default function ShippingPage() {
                       id={name}
                       name={name}
                       required
-                      value={(formData as any)[name]}
+                      value={formData[name]}
                       onChange={handleChange}
                       rows={3}
                       className="w-full px-3 py-2 border rounded-md"
@@ -203,11 +187,11 @@ export default function ShippingPage() {
                     />
                   ) : (
                     <input
-                      type={type}
+                      type={type ?? "text"}
                       id={name}
                       name={name}
                       required
-                      value={(formData as any)[name]}
+                      value={formData[name]}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border rounded-md"
                       disabled={isFormSubmitted}
@@ -226,19 +210,24 @@ export default function ShippingPage() {
               )}
             </form>
 
-            {/* Manual Payment Block */}
-            {/* {isFormSubmitted && (
+            {isFormSubmitted && paymentInfo && (
               <div className="mt-8 space-y-4">
                 <h3 className="text-xl font-semibold">Manual Payment</h3>
                 <Image
-                  src="/qr-code.png"
+                  src={paymentInfo.qrCodeUrl}
                   alt="QR Code"
                   width={200}
                   height={200}
                 />
-                <p><strong>UPI ID:</strong> yourupi@bank</p>
-                <p><strong>Bank:</strong> Axis Bank</p>
-                <p><strong>Account:</strong> 123456789</p>
+                <p>
+                  <strong>UPI ID:</strong> {paymentInfo.upiId}
+                </p>
+                <p>
+                  <strong>Bank:</strong> {paymentInfo.bank}
+                </p>
+                <p>
+                  <strong>Account:</strong> {paymentInfo.account}
+                </p>
 
                 <label htmlFor="transactionId" className="block text-sm font-medium">
                   Transaction ID
@@ -260,45 +249,10 @@ export default function ShippingPage() {
                   Confirm Payment
                 </button>
               </div>
-            )} */}
-            {isFormSubmitted && paymentInfo && (
-                <div className="mt-8 space-y-4">
-                    <h3 className="text-xl font-semibold">Manual Payment</h3>
-                    <Image
-                    src={paymentInfo.qrCodeUrl}
-                    alt="QR Code"
-                    width={200}
-                    height={200}
-                    />
-                    <p><strong>UPI ID:</strong> {paymentInfo.upiId}</p>
-                    <p><strong>Bank:</strong> {paymentInfo.bank}</p>
-                    <p><strong>Account:</strong> {paymentInfo.account}</p>
-
-                    <label htmlFor="transactionId" className="block text-sm font-medium">
-                    Transaction ID
-                    </label>
-                    <input
-                    id="transactionId"
-                    name="transactionId"
-                    value={formData.transactionId}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border rounded-md"
-                    placeholder="Enter your transaction ID"
-                    />
-
-                    <button
-                    onClick={handleConfirmPayment}
-                    disabled={!formData.transactionId.trim()}
-                    className="w-full bg-green-500 text-white py-2 rounded-md disabled:opacity-50"
-                    >
-                    Confirm Payment
-                    </button>
-                </div>
             )}
           </div>
         </motion.div>
 
-        {/* Order Summary */}
         <motion.div className="order-1 lg:order-2">
           <div className="bg-white border p-6 rounded-lg">
             <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
