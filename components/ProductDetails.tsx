@@ -4,6 +4,7 @@
 import { ImageCarousel } from "./ui/image-carousel";
 // import { KeyFeature } from "./ui/key-feature";
 import { AddToCartButton } from "./ui/add-to-cart-button";
+import VideoCardList from "./ui/video-card";
 
 interface ProductDetailsProps {
     _id: string;
@@ -18,6 +19,12 @@ interface ProductDetailsProps {
     description: { children: { text: string }[]; _key: string }[]; // Update type for `description`
     banner?: string[];
     stock?: number;
+    videoCards: {
+        _id: string;
+        title: string;
+        description: string;
+        videoUrl: string;
+    }[];
 }
 
 export function ProductDetails({
@@ -31,6 +38,7 @@ export function ProductDetails({
     mrp,
     mop,
     description,
+    videoCards,
 }: ProductDetailsProps) {
     // Create a product object
     const product = {
@@ -102,6 +110,14 @@ export function ProductDetails({
                     </div>
                 </div>
             </div>
+
+            {videoCards?.length > 0 && (
+                <>
+                <hr className="my-2 border-t-2 border-gray-300" />
+                <VideoCardList videoCards={videoCards} />
+                </>
+            )}
+
         </>
     );
 }

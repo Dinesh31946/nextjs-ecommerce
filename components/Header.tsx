@@ -117,7 +117,12 @@ const Header = () => {
                                 </div>
                             </div>
                         ) : (
-                            <SignInButton mode="modal" />
+                            // <SignInButton mode="modal" />
+                            <SignInButton mode="modal">
+                                <button className="flex items-center space-x-2 bg-gradient-to-r from-[#86d7ff] to-blue-400 text-white font-bold py-2 px-4 rounded-md shadow-lg hover:bg-gradient-to-l hover:from-blue-500 hover:to-[#86d7ff] transition-all duration-150 ease-out transform hover:scale-105">
+                                    <span>Sign In</span>
+                                </button>
+                            </SignInButton>
                         )}
 
                         {user?.passkeys.length === 0 && (
