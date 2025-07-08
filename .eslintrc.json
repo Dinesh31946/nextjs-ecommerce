@@ -4,5 +4,6 @@
         "no-unused-vars": "warn",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn"
-    }
+    },
+    "ignorePatterns": [".next/", "node_modules/", "out/", "build/"]
 }
