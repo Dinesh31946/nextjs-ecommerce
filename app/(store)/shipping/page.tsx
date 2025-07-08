@@ -8,15 +8,16 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import useBasketStore from "../store";
 import { imageUrl } from "@/lib/imageUrl";
+// import { v4 as uuidv4 } from "uuid";
 
 // Import PayPalScriptProvider and PayPalButtons
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import sanityClient, { createClient } from "@sanity/client";
+import { createClient } from "@sanity/client";
 
 const client = createClient({
     projectId: "kl91j914",
     dataset: "production",
-    token: "skv1vQZ1Fa32nXyDx5GkQnQPvkBtAIYJOZhgkOBtgwpAzVW0CtjYXYMSziVlOs0IkKcP7Gl59iROXxT6wqPHIYElkPrOJttZU1MyjMkVEQyYcxMRmSEY6SGsJAkd74omT5cBiJIJV5xbfIZf3baUGWHi12onSNxWWL8s0xVmXhpzPuYXw2Ia",
+    token: "skWLEFFIxKAlYzsPRNFpCyC2V3SABb5nFhJlwTvEfLMSeAyDJntOY7YtE4iYA7QWbL1NOvpjvHuc8WiiPvlAjKpYVtLlmguA2CYDHE2hUYm0CzbVbzj1zkobZUWZSTNyGgDSNPoc8KC0sPLNG2b6KPtaKmTMYNiQYR0Uciqy4Zt1msXgwOOb",
     apiVersion: "2023-01-01",
     useCdn: false,
 });
@@ -31,10 +32,10 @@ interface FormData {
     pincode: string;
 }
 
-interface Product {
-    product: { _ref: string }; // Assuming 'product' is a reference to a 'product' document
-    quantity: number;
-}
+// interface Product {
+//     product: { _ref: string }; // Assuming 'product' is a reference to a 'product' document
+//     quantity: number;
+// }
 
 export default function ShippingPage() {
     const router = useRouter();
@@ -86,6 +87,8 @@ export default function ShippingPage() {
     if (!isSignedIn) {
         return <RedirectToSignIn />; // Redirect to Clerk's sign-in page
     }
+
+    console.log("grouped Items:" + JSON.stringify(groupedItems));
 
     return (
         // Wrap the whole content in PayPalScriptProvider
@@ -285,7 +288,7 @@ export default function ShippingPage() {
                                     <button
                                         type="submit"
                                         className={cn(
-                                            "w-full bg-blue-600 text-white py-2 px-4 rounded-md",
+                                            "w-full bg-gradient-to-r from-[#86d7ff] to-blue-400 text-white font-bold py-2 px-4 rounded-md",
                                             "hover:bg-blue-700 transition-colors",
                                             "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                                         )}
@@ -331,10 +334,10 @@ export default function ShippingPage() {
                                                 {/* Dynamically load product image */}
                                                 <Image
                                                     src={
-                                                        item.product.image
+                                                        item.product.images
                                                             ? imageUrl(
                                                                   item.product
-                                                                      .image
+                                                                      .images[0]
                                                               ).url()
                                                             : "/placeholder.svg"
                                                     }
@@ -357,7 +360,7 @@ export default function ShippingPage() {
                                             <div className="font-medium">
                                                 Rs{" "}
                                                 {(
-                                                    (item.product.price ?? 0) *
+                                                    (item.product.mop ?? 0) *
                                                     item.quantity
                                                 ).toFixed(2)}
                                             </div>
@@ -401,17 +404,17 @@ export default function ShippingPage() {
                                             .capture()
                                             .then((details) => {
                                                 // Capture PayPal transaction details
-                                                const payerName =
-                                                    details.payer?.name
-                                                        ?.given_name +
-                                                    " " +
-                                                    details.payer?.name
-                                                        ?.surname;
-                                                const payerEmail =
-                                                    details.payer
-                                                        ?.email_address;
-                                                const payerId =
-                                                    details.payer?.payer_id;
+                                                // const payerName =
+                                                //     details.payer?.name
+                                                //         ?.given_name +
+                                                //     " " +
+                                                //     details.payer?.name
+                                                //         ?.surname;
+                                                // const payerEmail =
+                                                //     details.payer
+                                                //         ?.email_address;
+                                                // const payerId =
+                                                //     details.payer?.payer_id;
                                                 const transactionId =
                                                     details.id;
 
@@ -435,47 +438,74 @@ export default function ShippingPage() {
                                                 }
 
                                                 // Prepare order details
-                                                const orderDate =
-                                                    new Date().toISOString();
-                                                const status = "paid"; // Assuming the payment was successful
+                                                // const orderDate =
+                                                //     new Date().toISOString();
+                                                // const status = "paid"; // Assuming the payment was successful
 
                                                 //capturing the product details
-                                                const products =
-                                                    groupedItems.map(
-                                                        (item) => ({
-                                                            _key:
-                                                                Date.now() +
-                                                                Math.random(),
-                                                            product: {
-                                                                _type: "reference",
-                                                                _ref: item
-                                                                    .product
-                                                                    ._id, // Reference to the correct product
-                                                            },
-                                                            quantity:
-                                                                item.quantity,
-                                                        })
-                                                    );
+                                                // const products =
+                                                //     groupedItems.map(
+                                                //         (item) => ({
+                                                //             _key: crypto.randomUUID(),
+                                                //             product: {
+                                                //                 _type: "reference",
+                                                //                 _ref: item
+                                                //                     .product
+                                                //                     ._id, // Reference to the correct product
+                                                //             },
+                                                //             quantity:
+                                                //                 item.quantity,
+                                                //         })
+                                                //     );
 
-                                                // Sanity document creation for the "order" schema
+                                                const products = groupedItems
+                                                    .filter(
+                                                        (item) =>
+                                                            item.product &&
+                                                            item.product._id // Ensure valid product references
+                                                    )
+                                                    .map((item) => ({
+                                                        _key: crypto.randomUUID(), // Unique key for Sanity array
+                                                        productId: {
+                                                            _type: "reference", // Specify this is a reference type
+                                                            _ref: item.product
+                                                                ._id, // Reference the product document ID
+                                                        },
+                                                        quantity: item.quantity,
+                                                        price: item.product.mop, // Minimum Operating Price
+                                                    }));
+
                                                 client
                                                     .create({
-                                                        _type: "order", // Refers to your "order" schema in Sanity
+                                                        _type: "order",
                                                         orderNumber:
-                                                            transactionId, // Use PayPal transaction ID
+                                                            transactionId,
                                                         paypalTransactionId:
-                                                            transactionId, // Explicitly save PayPal transaction ID
-                                                        customerName: payerName, // Customer's full name from PayPal
-                                                        email: payerEmail, // Customer's email from PayPal
-                                                        clerkUserId: payerId, // Optional: Save PayPal payer ID for reference
-                                                        products: products, // Product details (mapped from cart)
+                                                            transactionId,
+                                                        customerName:
+                                                            formData.fullName,
+                                                        email: formData.email,
+                                                        phone: formData.phone,
+                                                        address:
+                                                            formData.address,
+                                                        city: formData.city,
+                                                        state: formData.state,
+                                                        pincode:
+                                                            formData.pincode,
+                                                        products, // Transformed products array
                                                         totalPrice:
-                                                            parseFloat(amount), // Total amount from PayPal
-                                                        currency: currency, // Currency from PayPal
-                                                        status: status, // Status is "paid" since the transaction was successful
-                                                        orderDate: orderDate, // Current date as the order date
+                                                            parseFloat(amount),
+                                                        currency: currency,
+                                                        status: "paid",
+                                                        orderDate:
+                                                            new Date().toISOString(),
                                                     })
-                                                    .then((createdOrder) => {})
+                                                    .then((createdOrder) => {
+                                                        console.log(
+                                                            "Order created successfully:",
+                                                            createdOrder
+                                                        );
+                                                    })
                                                     .catch((error) => {
                                                         console.error(
                                                             "Error saving order in Sanity:",

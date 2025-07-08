@@ -1,18 +1,12 @@
-import ProductGrid from "@/components/ProductGrid";
+import { ProductGrid } from "@/components/ProductGrid";
 import { searchProductsByName } from "@/sanity/lib/products/searchProductsByName";
 
-// Define the types for searchParams (for type safety)
-interface SearchPageProps {
-    searchParams: {
-        query: string;
-    };
-}
-
-async function SearchPage({ searchParams }: SearchPageProps) {
-    // No need to await, searchParams is already available synchronously
-    const { query } = searchParams;
-
-    // Fetch products based on the query
+async function SearchPage({
+    searchParams,
+}: {
+    searchParams: Promise<{ query: string }>;
+}) {
+    const { query } = await searchParams; // Resolve the promise
     const products = await searchProductsByName(query);
 
     // If no products found, show the 'no products found' message

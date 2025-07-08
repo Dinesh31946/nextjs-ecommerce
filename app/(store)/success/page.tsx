@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+// import Link from "next/link";
 import useBasketStore from "../store";
 
 function SuccessPage() {

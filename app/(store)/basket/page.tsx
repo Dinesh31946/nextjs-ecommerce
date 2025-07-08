@@ -1,6 +1,6 @@
 "use client";
 
-import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
+import { SignInButton, useAuth } from "@clerk/nextjs";
 import useBasketStore from "../store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,19 +8,20 @@ import AddToBasketButton from "@/components/AddToBasketButton";
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import Loader from "@/components/loader";
-import {
-    createCheckoutSession,
-    Metadata,
-} from "@/actions/createCheckoutSession";
 
 function BasketPage() {
     const groupedItems = useBasketStore((state) => state.getGroupedItems());
     const { isSignedIn } = useAuth();
-    const { user } = useUser();
+    // const { user } = useUser();
     const router = useRouter();
 
     const [isClient, setIsClient] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    // wait for client to mount
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     if (groupedItems.length === 0) {
         return (
@@ -32,11 +33,6 @@ function BasketPage() {
             </div>
         );
     }
-
-    // wait for client to mount
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     if (!isClient) {
         return <Loader />;
@@ -79,6 +75,8 @@ function BasketPage() {
         }
     };
 
+    console.log("basket item: ", groupedItems);
+
     return (
         <div className="container mx-auto p-4 max-w-6xl">
             <h1 className="text-2xl mb-4 font-bold">Your Basket</h1>
@@ -98,10 +96,10 @@ function BasketPage() {
                                 }
                             >
                                 <div className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 mr-4">
-                                    {item.product.image && (
+                                    {item.product.images && (
                                         <Image
                                             src={imageUrl(
-                                                item.product.image
+                                                item.product.images[0]
                                             ).url()}
                                             alt={
                                                 item.product.name ??
@@ -120,7 +118,7 @@ function BasketPage() {
                                     <p className="text-sm sm:text-base">
                                         Price: <br /> Rs{" "}
                                         {(
-                                            (item.product.price ?? 0) *
+                                            (item.product.mop ?? 0) *
                                             item.quantity
                                         ).toFixed(2)}
                                     </p>
@@ -163,13 +161,13 @@ function BasketPage() {
                         <button
                             onClick={handleCheckout}
                             disabled={isLoading}
-                            className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-blue-400"
+                            className="mt-4 w-full px-4 py-2 rounded border-4 border-[#86d7ff] bg-white text-[#86d7ff] font-bold transition duration-300 hover:bg-gradient-to-r hover:from-[#86d7ff] hover:to-[#2b87d1] hover:text-white disabled:bg-gray-600 disabled:text-white "
                         >
                             {isLoading ? "Processing" : "Checkout"}
                         </button>
                     ) : (
                         <SignInButton mode="modal">
-                            <button className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            <button className="mt-4 w-full px-4 py-2 rounded border-4 border-[#86d7ff] bg-white text-[#86d7ff] font-bold transition duration-300 hover:bg-gradient-to-r hover:from-[#86d7ff] hover:to-[#2b87d1] hover:text-white">
                                 Sign in to Checkout
                             </button>
                         </SignInButton>

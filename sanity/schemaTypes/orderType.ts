@@ -1,11 +1,9 @@
-import { BasketIcon } from "@sanity/icons";
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { defineField, defineType } from "sanity";
 
 export const orderType = defineType({
     name: "order",
     title: "Order",
     type: "document",
-    icon: BasketIcon,
     fields: [
         defineField({
             name: "orderNumber",
@@ -17,11 +15,6 @@ export const orderType = defineType({
             name: "paypalTransactionId",
             title: "PayPal Transaction ID",
             type: "string",
-        }),
-        defineField({
-            name: "clerkUserId",
-            title: "Clerk User ID",
-            type: "string",
             validation: (Rule) => Rule.required(),
         }),
         defineField({
@@ -32,46 +25,79 @@ export const orderType = defineType({
         }),
         defineField({
             name: "email",
-            title: "Customer Email",
+            title: "Email",
             type: "string",
-            validation: (Rule) => Rule.email(),
+            validation: (Rule) => Rule.required().email(),
+        }),
+        defineField({
+            name: "phone",
+            title: "Phone Number",
+            type: "string",
+            validation: (Rule) =>
+                Rule.required().regex(/^\d{10}$/, {
+                    name: "Phone number",
+                    invert: false,
+                }),
+        }),
+        defineField({
+            name: "address",
+            title: "Address",
+            type: "string",
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: "city",
+            title: "City",
+            type: "string",
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: "state",
+            title: "State",
+            type: "string",
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: "pincode",
+            title: "Pincode",
+            type: "string",
+            validation: (Rule) =>
+                Rule.required().regex(/^\d{6}$/, {
+                    name: "Pincode",
+                    invert: false,
+                }),
         }),
         defineField({
             name: "products",
             title: "Products",
             type: "array",
             of: [
-                defineArrayMember({
+                {
                     type: "object",
                     fields: [
                         defineField({
-                            name: "product",
-                            title: "Product Brought",
+                            name: "productId",
+                            title: "Product ID",
                             type: "reference",
-                            to: { type: "product" },
+                            to: [{ type: "product" }],
+                            validation: (Rule) => Rule.required(),
                         }),
                         defineField({
                             name: "quantity",
-                            title: "Quantity Purchased",
+                            title: "Quantity",
                             type: "number",
+                            validation: (Rule) => Rule.required().min(1),
+                        }),
+                        defineField({
+                            name: "price",
+                            title: "Price",
+                            type: "number",
+                            validation: (Rule) => Rule.required().min(0),
                         }),
                     ],
-                    preview: {
-                        select: {
-                            product: "product.name",
-                            quantity: "quantity",
-                            image: "product.image",
-                            price: "product.price",
-                            currency: "product.currency",
-                        },
-                        prepare(select) {
-                            return {
-                                title: `${select.product} * ${select.quantity}`,
-                            };
-                        },
-                    },
-                }),
+                },
             ],
+            validation: (Rule) => Rule.required().min(1),
         }),
         defineField({
             name: "totalPrice",
@@ -86,12 +112,6 @@ export const orderType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: "amountDiscount",
-            title: "Amount Discount",
-            type: "number",
-            validation: (Rule) => Rule.min(0),
-        }),
-        defineField({
             name: "status",
             title: "Order Status",
             type: "string",
@@ -104,6 +124,8 @@ export const orderType = defineType({
                     { title: "Cancelled", value: "cancelled" },
                 ],
             },
+            initialValue: "pending",
+            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: "orderDate",
@@ -114,19 +136,9 @@ export const orderType = defineType({
     ],
     preview: {
         select: {
-            name: "customerName",
-            amount: "totalPrice",
-            currency: "currency",
-            orderId: "orderNumber",
-            email: "email",
-        },
-        prepare(select) {
-            const orderIdSnippet = `${select.orderId.slice(0, 5)}...${select.orderId.slice(-5)}`;
-            return {
-                title: `${select.name} (${orderIdSnippet})`,
-                subtitle: `${select.amount} ${select.currency}, ${select.email}`,
-                media: BasketIcon,
-            };
+            title: "orderNumber",
+            subtitle: "customerName",
+            media: "products.0.image",
         },
     },
 });

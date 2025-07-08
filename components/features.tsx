@@ -1,64 +1,75 @@
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
 import {
-    SecureCheckoutIcon,
-    FreeShippingIcon,
-    EasyReturnsIcon,
-    CashOnDeliveryIcon,
-    DomesticShippingIcon,
-    QualityGuaranteedIcon,
-} from "./custom-icons";
+    Shield,
+    Truck,
+    RefreshCcw,
+    CreditCard,
+    Package,
+    Award,
+} from "lucide-react";
 
 export function Features() {
     const features = [
         {
-            icon: SecureCheckoutIcon,
-            title: "Secure",
-            subtitle: "Checkout",
+            icon: Shield,
+            title: "Secure Checkout",
+            description: "Your transactions are always safe with us",
         },
         {
-            icon: FreeShippingIcon,
-            title: "Free",
-            subtitle: "Shipping",
+            icon: Truck,
+            title: "Free Shipping",
+            description: "Enjoy free shipping on all orders over $50",
         },
         {
-            icon: EasyReturnsIcon,
-            title: "Easy",
-            subtitle: "Returns",
+            icon: RefreshCcw,
+            title: "Easy Returns",
+            description: "30-day hassle-free return policy",
         },
         {
-            icon: CashOnDeliveryIcon,
-            title: "Cash On",
-            subtitle: "Delivery*",
+            icon: CreditCard,
+            title: "Cash On Delivery",
+            description: "Pay when you receive your order*",
         },
         {
-            icon: DomesticShippingIcon,
-            title: "5-7 Days",
-            subtitle: "Domestic Shipping",
+            icon: Package,
+            title: "Fast Domestic Shipping",
+            description: "Get your order in 5-7 business days",
         },
         {
-            icon: QualityGuaranteedIcon,
-            title: "Quality",
-            subtitle: "Guaranteed",
+            icon: Award,
+            title: "Quality Guaranteed",
+            description: "We stand behind the quality of our products",
         },
     ];
 
     return (
-        <section className="w-full mt-8 py-16 px-4 md:px-6 bg-gray-100">
+        <section className="w-full py-16 px-4 md:px-6 bg-gradient-to-b from-white to-[#e6f5ff]">
             <div className="mx-auto max-w-7xl">
-                <div className="grid grid-cols-2 gap-y-12 gap-x-6 sm:grid-cols-3 lg:grid-cols-6">
+                <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-[#86d7ff] to-[#5eb8e0]">
+                    Why Choose Us
+                </h2>
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {features.map((feature, index) => (
-                        <div
+                        <motion.div
                             key={index}
-                            className="flex flex-col items-center justify-center text-center"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out group"
                         >
-                            <feature.icon />
-                            <h3 className="mt-4 text-sm font-medium text-gray-900">
+                            <div className="flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-[#86d7ff] group-hover:bg-[#5eb8e0] transition-colors duration-300">
+                                <feature.icon className="w-8 h-8 text-white" />
+                            </div>
+                            <h3 className="mb-3 text-2xl font-semibold text-gray-800 group-hover:text-[#5eb8e0] transition-colors duration-300">
                                 {feature.title}
-                                <br />
-                                <span className="font-normal">
-                                    {feature.subtitle}
-                                </span>
                             </h3>
-                        </div>
+                            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+                                {feature.description}
+                            </p>
+                        </motion.div>
                     ))}
                 </div>
             </div>

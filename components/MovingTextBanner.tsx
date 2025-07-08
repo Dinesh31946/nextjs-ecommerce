@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
-import { getActiveOfferText } from "@/sanity/lib/offertext/getActiveOfferText";
+// import { getActiveOfferText } from "@/sanity/lib/offertext/getActiveOfferText";
 
 export default function MovingTextBanner() {
     const [animate, setAnimate] = useState(false);
@@ -38,7 +38,7 @@ export default function MovingTextBanner() {
     }, []);
 
     return (
-        <div className="top-0 left-0 w-full bg-blue-500 text-primary-foreground z-50 overflow-hidden flex items-center justify-between">
+        <div className="top-0 left-0 w-full bg-[#86d7ff] text-primary-foreground z-50 overflow-hidden flex items-center justify-between">
             <div className="flex-grow overflow-hidden">
                 <div
                     className={`whitespace-nowrap py-1 text-sm ${

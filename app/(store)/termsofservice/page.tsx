@@ -5,7 +5,7 @@ import React from "react";
 export default function TermsOfServicePage() {
     return (
         <div className="p-6 max-w-4xl mx-auto text-gray-800">
-            <h1 className="text-4xl text-center font-bold mb-6 p-5 text-blue-500">
+            <h1 className="text-4xl text-center font-bold mb-6 p-5 text-[#86d7ff]">
                 Terms of Service
             </h1>
 
@@ -51,7 +51,7 @@ export default function TermsOfServicePage() {
                 acceptance of those changes.
             </p>
 
-            <h2 className="text-2xl font-semibold text-blue-500 mt-8 mb-4">
+            <h2 className="text-2xl font-semibold text-[#86d7ff] mt-8 mb-4">
                 SECTION 1 - ONLINE STORE TERMS
             </h2>
             <p className="mb-4">
@@ -76,7 +76,7 @@ export default function TermsOfServicePage() {
                 immediate termination of your Services.
             </p>
 
-            <h2 className="text-2xl font-semibold text-blue-500 mt-8 mb-4">
+            <h2 className="text-2xl font-semibold text-[#86d7ff] mt-8 mb-4">
                 SECTION 2 - GENERAL CONDITIONS
             </h2>
             <p className="mb-4">

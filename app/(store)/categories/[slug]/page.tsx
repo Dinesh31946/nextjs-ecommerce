@@ -1,30 +1,37 @@
-import ProductsView from "@/components/ProductsView";
-import { getAllCategories } from "@/sanity/lib/products/getAllCetgories";
+import { ProductGrid } from "@/components/ProductGrid";
 import { getProductByCategory } from "@/sanity/lib/products/getProductByCategory";
 
-async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+// This is the type for the props that CategoryPage will receive
+type CategoryPageProps = {
+    params: Promise<{ slug: string }>;
+};
+
+// The CategoryPage component
+const CategoryPage = async ({ params }: CategoryPageProps) => {
     const { slug } = await params;
 
-    const products = await getProductByCategory(slug);
-    const categories = await getAllCategories();
+    if (!slug) {
+        return <p>Invalid product slug</p>; // Handle missing slug
+    }
+
+    const product = await getProductByCategory(slug);
+
+    if (!product) {
+        return <p>Product not found</p>; // Handle 404
+    }
 
     return (
-        <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-                <h1 className="text-3xl font-bold mb-6 text-center">
-                    {slug
-                        .split("-")
-                        .map(
-                            (word) =>
-                                word.charAt(0).toUpperCase() + word.slice(1)
-                        )
-                        .join(" ")}{" "}
-                    Collection
-                </h1>
-                <ProductsView products={products} categories={categories} />
-            </div>
+        <div className="min-h-screen bg-gray-50">
+            <header className="bg-[#86d7ff] text-white py-4">
+                <div className="container mx-auto px-4">
+                    <h1 className="text-2xl font-bold">Our Products</h1>
+                </div>
+            </header>
+            <main className="container mx-auto px-4 py-8">
+                <ProductGrid products={product} />
+            </main>
         </div>
     );
-}
+};
 
 export default CategoryPage;
