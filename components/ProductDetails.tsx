@@ -2,9 +2,8 @@
 
 // import { useId, useState, useEffect } from "react";
 import { ImageCarousel } from "./ui/image-carousel";
-import { KeyFeature } from "./ui/key-feature";
+// import { KeyFeature } from "./ui/key-feature";
 import { AddToCartButton } from "./ui/add-to-cart-button";
-import { ServiceIcons } from "./ui/service-icons";
 
 interface ProductDetailsProps {
     _id: string;
@@ -70,7 +69,7 @@ export function ProductDetails({
                         ))}
 
                         {/* Key Features */}
-                        {Array.isArray(features) && features.length > 0 && (
+                        {/* {Array.isArray(features) && features.length > 0 && (
                             <div className="mt-6">
                                 <h3 className="text-lg font-medium">
                                     Key Features
@@ -84,7 +83,7 @@ export function ProductDetails({
                                     ))}
                                 </div>
                             </div>
-                        )}
+                        )} */}
 
                         {/* Pricing */}
                         <div className="mt-6 flex items-center space-x-4">
@@ -105,7 +104,6 @@ export function ProductDetails({
                     </div>
                 </div>
             </div>
-            <ServiceIcons />
         </>
     );
 }

@@ -35,7 +35,7 @@ const Header = () => {
         <header className="flex flex-wrap justify-between items-center  py-2">
             <MovingTextBanner />
             {/* Top row */}
-            <div className="flex flex-wrap w-full mt-2 justify-between items-center">
+            <div className="flex flex-wrap w-full mt-2 justify-between items-center bg-slate-900">
                 {/* <Link
                     href="/"
                     className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer mx-auto sm:mx-0"
@@ -52,7 +52,7 @@ const Header = () => {
                     {/* Logo Image */}
                     <div className="ml-4 flex items-center">
                         <Image
-                            src="/images/logo.png"
+                            src="/images/positivegems.avif"
                             alt="PostiveGems Logo"
                             width={150}
                             height={150}
@@ -108,10 +108,10 @@ const Header = () => {
                             <div className="flex items-center space-x-2">
                                 <UserButton />
                                 <div className="hidden sm:block text-xs">
-                                    <p className="text-gray-400">
+                                    <p className="text-white">
                                         Welcome Back
                                     </p>
-                                    <p className="font-bold">
+                                    <p className="font-bold text-white">
                                         {user.fullName}!
                                     </p>
                                 </div>
