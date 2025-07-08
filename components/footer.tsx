@@ -17,7 +17,7 @@ export function Footer() {
                     {/* Brand and Tagline */}
                     <div>
                         <h2 className="text-2xl font-bold tracking-wide text-gray-800">
-                            SepctraStore
+                            PositiveGems
                         </h2>
                         <p className="mt-4 text-gray-700">
                             Bringing comfort and style to your doorstep.

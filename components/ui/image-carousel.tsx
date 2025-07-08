@@ -27,7 +27,7 @@ export function ImageCarousel({ images }: ImageCarouselProps) {
 
     return (
         <div className="relative w-full">
-            <div className="relative h-[400px] md:h-[600px] w-full rounded-lg overflow-hidden">
+            <div className="relative h-[400px] md:h-[400px] w-full rounded-lg overflow-hidden">
                 <Image
                     src={images[currentIndex]}
                     alt={`Product image ${currentIndex + 1}`}
