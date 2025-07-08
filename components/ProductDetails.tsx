@@ -5,6 +5,8 @@ import { ImageCarousel } from "./ui/image-carousel";
 // import { KeyFeature } from "./ui/key-feature";
 import { AddToCartButton } from "./ui/add-to-cart-button";
 import VideoCardList from "./ui/video-card";
+import Accordion from "./ui/accordion";
+import FAQAccordionList from "./ui/FAQAccordionList";
 
 interface ProductDetailsProps {
     _id: string;
@@ -25,6 +27,12 @@ interface ProductDetailsProps {
         description: string;
         videoUrl: string;
     }[];
+    howToUse?: { _id: string; title: string; description: string } | null;
+    faqs: {
+        _id: string;
+        question: string;
+        answer: string;
+    }[];
 }
 
 export function ProductDetails({
@@ -39,6 +47,8 @@ export function ProductDetails({
     mop,
     description,
     videoCards,
+    howToUse,
+    faqs,
 }: ProductDetailsProps) {
     // Create a product object
     const product = {
@@ -115,6 +125,38 @@ export function ProductDetails({
                 <>
                 <hr className="my-2 border-t-2 border-gray-300" />
                 <VideoCardList videoCards={videoCards} />
+                </>
+            )}
+
+            {/* Accordion */}
+            {howToUse && (
+                <>
+                    <hr className="my-2 border-t-2 border-gray-300" />
+                    <Accordion title={howToUse.title} description={howToUse.description} />
+                </>
+            )}
+
+            <hr className="my-2 border-t-2 border-gray-300" />
+            <div className="py-12 text-center px-6 max-w-4xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-black mb-4">
+                    Guaranteed Results ✨
+                </h2>
+                <p className="text-gray-800 text-base sm:text-lg">
+                    <strong>PositiveGems Long-Time</strong> has amazed millions of people around the World
+                    with mind blowing results.
+                </p>
+                <p className="text-gray-800 text-base sm:text-lg mt-2">
+                    We have 95% Repeat customer rate, meaning,
+                </p>
+                <p className="text-gray-900 text-base sm:text-lg mt-1 font-semibold">
+                    For every 100 buyers, 95 comes back to buy more.
+                </p>
+            </div>
+
+            {faqs?.length > 0 && (
+                <>
+                <hr className="my-6 border-t-2 border-gray-300" />
+                <FAQAccordionList faqs={faqs} />
                 </>
             )}
 
