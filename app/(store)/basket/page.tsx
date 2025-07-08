@@ -67,7 +67,8 @@ function BasketPage() {
 
         try {
             // Redirect to the shipping page with user and basket data (basket data from store)
-            router.push("/shipping");
+            // router.push("/shipping");
+            router.push("/manual-shipping");
         } catch (error) {
             console.error("Error during checkout", error);
         } finally {

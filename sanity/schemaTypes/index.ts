@@ -10,6 +10,7 @@ import { reachUsFormType } from "./contactType";
 import { videoCardType } from "./videoCard";
 import { howToUse } from "./howToUse";
 import { faq } from "./faq";
+import { paymentInfo } from "./paymentInfo";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -23,5 +24,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         videoCardType,
         howToUse,
         faq,
+        paymentInfo,
     ],
 };
