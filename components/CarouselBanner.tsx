@@ -6,9 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const media = [
   "/images/Home-Banner-1.jpg",
-  "/videos/video-banner-2.mp4",
   "/images/Home-Banner-2.jpg",
-  "/videos/video-banner-1.mp4",
   "/images/Home-Banner-3.jpg",
 ];
 
