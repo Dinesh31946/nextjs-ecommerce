@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const media = [
-  "/images/Home-Banner-1.jpg",
+  "/images/bnr-1.jpg",
   "/images/Home-Banner-2.jpg",
   "/images/Home-Banner-3.jpg",
 ];
